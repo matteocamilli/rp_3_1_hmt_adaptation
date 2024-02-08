@@ -1,0 +1,601 @@
+,model,AUC,size
+0,Logistic Regression,0.831,100
+1,Random Forests,0.878,100
+2,C5.0 (Decision Tree),0.729,100
+3,Neural Network,0.795,100
+4,Gradient Boosting Machine (GBM),0.887,100
+5,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+6,Logistic Regression,0.858,200
+7,Random Forests,0.89,200
+8,C5.0 (Decision Tree),0.825,200
+9,Neural Network,0.852,200
+10,Gradient Boosting Machine (GBM),0.912,200
+11,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+12,Logistic Regression,0.882,300
+13,Random Forests,0.905,300
+14,C5.0 (Decision Tree),0.849,300
+15,Neural Network,0.896,300
+16,Gradient Boosting Machine (GBM),0.936,300
+17,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+18,Logistic Regression,0.883,400
+19,Random Forests,0.918,400
+20,C5.0 (Decision Tree),0.79,400
+21,Neural Network,0.91,400
+22,Gradient Boosting Machine (GBM),0.931,400
+23,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+24,Logistic Regression,0.887,500
+25,Random Forests,0.93,500
+26,C5.0 (Decision Tree),0.795,500
+27,Neural Network,0.919,500
+28,Gradient Boosting Machine (GBM),0.928,500
+29,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+30,Logistic Regression,0.898,600
+31,Random Forests,0.928,600
+32,C5.0 (Decision Tree),0.804,600
+33,Neural Network,0.928,600
+34,Gradient Boosting Machine (GBM),0.956,600
+35,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+36,Logistic Regression,0.898,700
+37,Random Forests,0.931,700
+38,C5.0 (Decision Tree),0.8,700
+39,Neural Network,0.93,700
+40,Gradient Boosting Machine (GBM),0.958,700
+41,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+42,Logistic Regression,0.901,800
+43,Random Forests,0.943,800
+44,C5.0 (Decision Tree),0.832,800
+45,Neural Network,0.936,800
+46,Gradient Boosting Machine (GBM),0.96,800
+47,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+48,Logistic Regression,0.901,900
+49,Random Forests,0.943,900
+50,C5.0 (Decision Tree),0.832,900
+51,Neural Network,0.936,900
+52,Gradient Boosting Machine (GBM),0.96,900
+53,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+54,Logistic Regression,0.901,1000
+55,Random Forests,0.943,1000
+56,C5.0 (Decision Tree),0.832,1000
+57,Neural Network,0.936,1000
+58,Gradient Boosting Machine (GBM),0.96,1000
+59,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+61,Logistic Regression,0.831,100
+62,Random Forests,0.878,100
+63,C5.0 (Decision Tree),0.729,100
+64,Neural Network,0.795,100
+65,Gradient Boosting Machine (GBM),0.887,100
+66,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+67,Logistic Regression,0.858,200
+68,Random Forests,0.89,200
+69,C5.0 (Decision Tree),0.825,200
+70,Neural Network,0.852,200
+71,Gradient Boosting Machine (GBM),0.912,200
+72,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+73,Logistic Regression,0.882,300
+74,Random Forests,0.905,300
+75,C5.0 (Decision Tree),0.849,300
+76,Neural Network,0.896,300
+77,Gradient Boosting Machine (GBM),0.936,300
+78,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+79,Logistic Regression,0.883,400
+80,Random Forests,0.918,400
+81,C5.0 (Decision Tree),0.79,400
+82,Neural Network,0.91,400
+83,Gradient Boosting Machine (GBM),0.931,400
+84,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+85,Logistic Regression,0.887,500
+86,Random Forests,0.93,500
+87,C5.0 (Decision Tree),0.795,500
+88,Neural Network,0.919,500
+89,Gradient Boosting Machine (GBM),0.928,500
+90,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+91,Logistic Regression,0.898,600
+92,Random Forests,0.928,600
+93,C5.0 (Decision Tree),0.804,600
+94,Neural Network,0.928,600
+95,Gradient Boosting Machine (GBM),0.956,600
+96,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+97,Logistic Regression,0.898,700
+98,Random Forests,0.931,700
+99,C5.0 (Decision Tree),0.8,700
+100,Neural Network,0.93,700
+101,Gradient Boosting Machine (GBM),0.958,700
+102,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+103,Logistic Regression,0.901,800
+104,Random Forests,0.943,800
+105,C5.0 (Decision Tree),0.832,800
+106,Neural Network,0.936,800
+107,Gradient Boosting Machine (GBM),0.96,800
+108,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+109,Logistic Regression,0.901,900
+110,Random Forests,0.943,900
+111,C5.0 (Decision Tree),0.832,900
+112,Neural Network,0.936,900
+113,Gradient Boosting Machine (GBM),0.96,900
+114,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+115,Logistic Regression,0.901,1000
+116,Random Forests,0.943,1000
+117,C5.0 (Decision Tree),0.832,1000
+118,Neural Network,0.936,1000
+119,Gradient Boosting Machine (GBM),0.96,1000
+120,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+122,Logistic Regression,0.831,100
+123,Random Forests,0.878,100
+124,C5.0 (Decision Tree),0.729,100
+125,Neural Network,0.795,100
+126,Gradient Boosting Machine (GBM),0.887,100
+127,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+128,Logistic Regression,0.858,200
+129,Random Forests,0.89,200
+130,C5.0 (Decision Tree),0.825,200
+131,Neural Network,0.852,200
+132,Gradient Boosting Machine (GBM),0.912,200
+133,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+134,Logistic Regression,0.882,300
+135,Random Forests,0.905,300
+136,C5.0 (Decision Tree),0.849,300
+137,Neural Network,0.896,300
+138,Gradient Boosting Machine (GBM),0.936,300
+139,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+140,Logistic Regression,0.883,400
+141,Random Forests,0.918,400
+142,C5.0 (Decision Tree),0.79,400
+143,Neural Network,0.91,400
+144,Gradient Boosting Machine (GBM),0.931,400
+145,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+146,Logistic Regression,0.887,500
+147,Random Forests,0.93,500
+148,C5.0 (Decision Tree),0.795,500
+149,Neural Network,0.919,500
+150,Gradient Boosting Machine (GBM),0.928,500
+151,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+152,Logistic Regression,0.898,600
+153,Random Forests,0.928,600
+154,C5.0 (Decision Tree),0.804,600
+155,Neural Network,0.928,600
+156,Gradient Boosting Machine (GBM),0.956,600
+157,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+158,Logistic Regression,0.898,700
+159,Random Forests,0.931,700
+160,C5.0 (Decision Tree),0.8,700
+161,Neural Network,0.93,700
+162,Gradient Boosting Machine (GBM),0.958,700
+163,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+164,Logistic Regression,0.901,800
+165,Random Forests,0.943,800
+166,C5.0 (Decision Tree),0.832,800
+167,Neural Network,0.936,800
+168,Gradient Boosting Machine (GBM),0.96,800
+169,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+170,Logistic Regression,0.901,900
+171,Random Forests,0.943,900
+172,C5.0 (Decision Tree),0.832,900
+173,Neural Network,0.936,900
+174,Gradient Boosting Machine (GBM),0.96,900
+175,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+176,Logistic Regression,0.901,1000
+177,Random Forests,0.943,1000
+178,C5.0 (Decision Tree),0.832,1000
+179,Neural Network,0.936,1000
+180,Gradient Boosting Machine (GBM),0.96,1000
+181,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+183,Logistic Regression,0.831,100
+184,Random Forests,0.878,100
+185,C5.0 (Decision Tree),0.729,100
+186,Neural Network,0.795,100
+187,Gradient Boosting Machine (GBM),0.887,100
+188,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+189,Logistic Regression,0.858,200
+190,Random Forests,0.89,200
+191,C5.0 (Decision Tree),0.825,200
+192,Neural Network,0.852,200
+193,Gradient Boosting Machine (GBM),0.912,200
+194,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+195,Logistic Regression,0.882,300
+196,Random Forests,0.905,300
+197,C5.0 (Decision Tree),0.849,300
+198,Neural Network,0.896,300
+199,Gradient Boosting Machine (GBM),0.936,300
+200,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+201,Logistic Regression,0.883,400
+202,Random Forests,0.918,400
+203,C5.0 (Decision Tree),0.79,400
+204,Neural Network,0.91,400
+205,Gradient Boosting Machine (GBM),0.931,400
+206,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+207,Logistic Regression,0.887,500
+208,Random Forests,0.93,500
+209,C5.0 (Decision Tree),0.795,500
+210,Neural Network,0.919,500
+211,Gradient Boosting Machine (GBM),0.928,500
+212,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+213,Logistic Regression,0.898,600
+214,Random Forests,0.928,600
+215,C5.0 (Decision Tree),0.804,600
+216,Neural Network,0.928,600
+217,Gradient Boosting Machine (GBM),0.956,600
+218,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+219,Logistic Regression,0.898,700
+220,Random Forests,0.931,700
+221,C5.0 (Decision Tree),0.8,700
+222,Neural Network,0.93,700
+223,Gradient Boosting Machine (GBM),0.958,700
+224,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+225,Logistic Regression,0.901,800
+226,Random Forests,0.943,800
+227,C5.0 (Decision Tree),0.832,800
+228,Neural Network,0.936,800
+229,Gradient Boosting Machine (GBM),0.96,800
+230,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+231,Logistic Regression,0.901,900
+232,Random Forests,0.943,900
+233,C5.0 (Decision Tree),0.832,900
+234,Neural Network,0.936,900
+235,Gradient Boosting Machine (GBM),0.96,900
+236,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+237,Logistic Regression,0.901,1000
+238,Random Forests,0.943,1000
+239,C5.0 (Decision Tree),0.832,1000
+240,Neural Network,0.936,1000
+241,Gradient Boosting Machine (GBM),0.96,1000
+242,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+244,Logistic Regression,0.831,100
+245,Random Forests,0.878,100
+246,C5.0 (Decision Tree),0.729,100
+247,Neural Network,0.795,100
+248,Gradient Boosting Machine (GBM),0.887,100
+249,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+250,Logistic Regression,0.858,200
+251,Random Forests,0.89,200
+252,C5.0 (Decision Tree),0.825,200
+253,Neural Network,0.852,200
+254,Gradient Boosting Machine (GBM),0.912,200
+255,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+256,Logistic Regression,0.882,300
+257,Random Forests,0.905,300
+258,C5.0 (Decision Tree),0.849,300
+259,Neural Network,0.896,300
+260,Gradient Boosting Machine (GBM),0.936,300
+261,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+262,Logistic Regression,0.883,400
+263,Random Forests,0.918,400
+264,C5.0 (Decision Tree),0.79,400
+265,Neural Network,0.91,400
+266,Gradient Boosting Machine (GBM),0.931,400
+267,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+268,Logistic Regression,0.887,500
+269,Random Forests,0.93,500
+270,C5.0 (Decision Tree),0.795,500
+271,Neural Network,0.919,500
+272,Gradient Boosting Machine (GBM),0.928,500
+273,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+274,Logistic Regression,0.898,600
+275,Random Forests,0.928,600
+276,C5.0 (Decision Tree),0.804,600
+277,Neural Network,0.928,600
+278,Gradient Boosting Machine (GBM),0.956,600
+279,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+280,Logistic Regression,0.898,700
+281,Random Forests,0.931,700
+282,C5.0 (Decision Tree),0.8,700
+283,Neural Network,0.93,700
+284,Gradient Boosting Machine (GBM),0.958,700
+285,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+286,Logistic Regression,0.901,800
+287,Random Forests,0.943,800
+288,C5.0 (Decision Tree),0.832,800
+289,Neural Network,0.936,800
+290,Gradient Boosting Machine (GBM),0.96,800
+291,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+292,Logistic Regression,0.901,900
+293,Random Forests,0.943,900
+294,C5.0 (Decision Tree),0.832,900
+295,Neural Network,0.936,900
+296,Gradient Boosting Machine (GBM),0.96,900
+297,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+298,Logistic Regression,0.901,1000
+299,Random Forests,0.943,1000
+300,C5.0 (Decision Tree),0.832,1000
+301,Neural Network,0.936,1000
+302,Gradient Boosting Machine (GBM),0.96,1000
+303,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+305,Logistic Regression,0.831,100
+306,Random Forests,0.878,100
+307,C5.0 (Decision Tree),0.729,100
+308,Neural Network,0.795,100
+309,Gradient Boosting Machine (GBM),0.887,100
+310,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+311,Logistic Regression,0.858,200
+312,Random Forests,0.89,200
+313,C5.0 (Decision Tree),0.825,200
+314,Neural Network,0.852,200
+315,Gradient Boosting Machine (GBM),0.912,200
+316,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+317,Logistic Regression,0.882,300
+318,Random Forests,0.905,300
+319,C5.0 (Decision Tree),0.849,300
+320,Neural Network,0.896,300
+321,Gradient Boosting Machine (GBM),0.936,300
+322,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+323,Logistic Regression,0.883,400
+324,Random Forests,0.918,400
+325,C5.0 (Decision Tree),0.79,400
+326,Neural Network,0.91,400
+327,Gradient Boosting Machine (GBM),0.931,400
+328,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+329,Logistic Regression,0.887,500
+330,Random Forests,0.93,500
+331,C5.0 (Decision Tree),0.795,500
+332,Neural Network,0.919,500
+333,Gradient Boosting Machine (GBM),0.928,500
+334,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+335,Logistic Regression,0.898,600
+336,Random Forests,0.928,600
+337,C5.0 (Decision Tree),0.804,600
+338,Neural Network,0.928,600
+339,Gradient Boosting Machine (GBM),0.956,600
+340,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+341,Logistic Regression,0.898,700
+342,Random Forests,0.931,700
+343,C5.0 (Decision Tree),0.8,700
+344,Neural Network,0.93,700
+345,Gradient Boosting Machine (GBM),0.958,700
+346,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+347,Logistic Regression,0.901,800
+348,Random Forests,0.943,800
+349,C5.0 (Decision Tree),0.832,800
+350,Neural Network,0.936,800
+351,Gradient Boosting Machine (GBM),0.96,800
+352,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+353,Logistic Regression,0.901,900
+354,Random Forests,0.943,900
+355,C5.0 (Decision Tree),0.832,900
+356,Neural Network,0.936,900
+357,Gradient Boosting Machine (GBM),0.96,900
+358,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+359,Logistic Regression,0.901,1000
+360,Random Forests,0.943,1000
+361,C5.0 (Decision Tree),0.832,1000
+362,Neural Network,0.936,1000
+363,Gradient Boosting Machine (GBM),0.96,1000
+364,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+366,Logistic Regression,0.831,100
+367,Random Forests,0.878,100
+368,C5.0 (Decision Tree),0.729,100
+369,Neural Network,0.795,100
+370,Gradient Boosting Machine (GBM),0.887,100
+371,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+372,Logistic Regression,0.858,200
+373,Random Forests,0.89,200
+374,C5.0 (Decision Tree),0.825,200
+375,Neural Network,0.852,200
+376,Gradient Boosting Machine (GBM),0.912,200
+377,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+378,Logistic Regression,0.882,300
+379,Random Forests,0.905,300
+380,C5.0 (Decision Tree),0.849,300
+381,Neural Network,0.896,300
+382,Gradient Boosting Machine (GBM),0.936,300
+383,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+384,Logistic Regression,0.883,400
+385,Random Forests,0.918,400
+386,C5.0 (Decision Tree),0.79,400
+387,Neural Network,0.91,400
+388,Gradient Boosting Machine (GBM),0.931,400
+389,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+390,Logistic Regression,0.887,500
+391,Random Forests,0.93,500
+392,C5.0 (Decision Tree),0.795,500
+393,Neural Network,0.919,500
+394,Gradient Boosting Machine (GBM),0.928,500
+395,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+396,Logistic Regression,0.898,600
+397,Random Forests,0.928,600
+398,C5.0 (Decision Tree),0.804,600
+399,Neural Network,0.928,600
+400,Gradient Boosting Machine (GBM),0.956,600
+401,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+402,Logistic Regression,0.898,700
+403,Random Forests,0.931,700
+404,C5.0 (Decision Tree),0.8,700
+405,Neural Network,0.93,700
+406,Gradient Boosting Machine (GBM),0.958,700
+407,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+408,Logistic Regression,0.901,800
+409,Random Forests,0.943,800
+410,C5.0 (Decision Tree),0.832,800
+411,Neural Network,0.936,800
+412,Gradient Boosting Machine (GBM),0.96,800
+413,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+414,Logistic Regression,0.901,900
+415,Random Forests,0.943,900
+416,C5.0 (Decision Tree),0.832,900
+417,Neural Network,0.936,900
+418,Gradient Boosting Machine (GBM),0.96,900
+419,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+420,Logistic Regression,0.901,1000
+421,Random Forests,0.943,1000
+422,C5.0 (Decision Tree),0.832,1000
+423,Neural Network,0.936,1000
+424,Gradient Boosting Machine (GBM),0.96,1000
+425,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+427,Logistic Regression,0.831,100
+428,Random Forests,0.878,100
+429,C5.0 (Decision Tree),0.729,100
+430,Neural Network,0.795,100
+431,Gradient Boosting Machine (GBM),0.887,100
+432,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+433,Logistic Regression,0.858,200
+434,Random Forests,0.89,200
+435,C5.0 (Decision Tree),0.825,200
+436,Neural Network,0.852,200
+437,Gradient Boosting Machine (GBM),0.912,200
+438,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+439,Logistic Regression,0.882,300
+440,Random Forests,0.905,300
+441,C5.0 (Decision Tree),0.849,300
+442,Neural Network,0.896,300
+443,Gradient Boosting Machine (GBM),0.936,300
+444,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+445,Logistic Regression,0.883,400
+446,Random Forests,0.918,400
+447,C5.0 (Decision Tree),0.79,400
+448,Neural Network,0.91,400
+449,Gradient Boosting Machine (GBM),0.931,400
+450,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+451,Logistic Regression,0.887,500
+452,Random Forests,0.93,500
+453,C5.0 (Decision Tree),0.795,500
+454,Neural Network,0.919,500
+455,Gradient Boosting Machine (GBM),0.928,500
+456,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+457,Logistic Regression,0.898,600
+458,Random Forests,0.928,600
+459,C5.0 (Decision Tree),0.804,600
+460,Neural Network,0.928,600
+461,Gradient Boosting Machine (GBM),0.956,600
+462,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+463,Logistic Regression,0.898,700
+464,Random Forests,0.931,700
+465,C5.0 (Decision Tree),0.8,700
+466,Neural Network,0.93,700
+467,Gradient Boosting Machine (GBM),0.958,700
+468,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+469,Logistic Regression,0.901,800
+470,Random Forests,0.943,800
+471,C5.0 (Decision Tree),0.832,800
+472,Neural Network,0.936,800
+473,Gradient Boosting Machine (GBM),0.96,800
+474,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+475,Logistic Regression,0.901,900
+476,Random Forests,0.943,900
+477,C5.0 (Decision Tree),0.832,900
+478,Neural Network,0.936,900
+479,Gradient Boosting Machine (GBM),0.96,900
+480,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+481,Logistic Regression,0.901,1000
+482,Random Forests,0.943,1000
+483,C5.0 (Decision Tree),0.832,1000
+484,Neural Network,0.936,1000
+485,Gradient Boosting Machine (GBM),0.96,1000
+486,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+488,Logistic Regression,0.831,100
+489,Random Forests,0.878,100
+490,C5.0 (Decision Tree),0.729,100
+491,Neural Network,0.795,100
+492,Gradient Boosting Machine (GBM),0.887,100
+493,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+494,Logistic Regression,0.858,200
+495,Random Forests,0.89,200
+496,C5.0 (Decision Tree),0.825,200
+497,Neural Network,0.852,200
+498,Gradient Boosting Machine (GBM),0.912,200
+499,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+500,Logistic Regression,0.882,300
+501,Random Forests,0.905,300
+502,C5.0 (Decision Tree),0.849,300
+503,Neural Network,0.896,300
+504,Gradient Boosting Machine (GBM),0.936,300
+505,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+506,Logistic Regression,0.883,400
+507,Random Forests,0.918,400
+508,C5.0 (Decision Tree),0.79,400
+509,Neural Network,0.91,400
+510,Gradient Boosting Machine (GBM),0.931,400
+511,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+512,Logistic Regression,0.887,500
+513,Random Forests,0.93,500
+514,C5.0 (Decision Tree),0.795,500
+515,Neural Network,0.919,500
+516,Gradient Boosting Machine (GBM),0.928,500
+517,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+518,Logistic Regression,0.898,600
+519,Random Forests,0.928,600
+520,C5.0 (Decision Tree),0.804,600
+521,Neural Network,0.928,600
+522,Gradient Boosting Machine (GBM),0.956,600
+523,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+524,Logistic Regression,0.898,700
+525,Random Forests,0.931,700
+526,C5.0 (Decision Tree),0.8,700
+527,Neural Network,0.93,700
+528,Gradient Boosting Machine (GBM),0.958,700
+529,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+530,Logistic Regression,0.901,800
+531,Random Forests,0.943,800
+532,C5.0 (Decision Tree),0.832,800
+533,Neural Network,0.936,800
+534,Gradient Boosting Machine (GBM),0.96,800
+535,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+536,Logistic Regression,0.901,900
+537,Random Forests,0.943,900
+538,C5.0 (Decision Tree),0.832,900
+539,Neural Network,0.936,900
+540,Gradient Boosting Machine (GBM),0.96,900
+541,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+542,Logistic Regression,0.901,1000
+543,Random Forests,0.943,1000
+544,C5.0 (Decision Tree),0.832,1000
+545,Neural Network,0.936,1000
+546,Gradient Boosting Machine (GBM),0.96,1000
+547,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
+549,Logistic Regression,0.831,100
+550,Random Forests,0.878,100
+551,C5.0 (Decision Tree),0.729,100
+552,Neural Network,0.795,100
+553,Gradient Boosting Machine (GBM),0.887,100
+554,eXtreme Gradient Boosting Tree (xGBTree),0.887,100
+555,Logistic Regression,0.858,200
+556,Random Forests,0.89,200
+557,C5.0 (Decision Tree),0.825,200
+558,Neural Network,0.852,200
+559,Gradient Boosting Machine (GBM),0.912,200
+560,eXtreme Gradient Boosting Tree (xGBTree),0.912,200
+561,Logistic Regression,0.882,300
+562,Random Forests,0.905,300
+563,C5.0 (Decision Tree),0.849,300
+564,Neural Network,0.896,300
+565,Gradient Boosting Machine (GBM),0.936,300
+566,eXtreme Gradient Boosting Tree (xGBTree),0.936,300
+567,Logistic Regression,0.883,400
+568,Random Forests,0.918,400
+569,C5.0 (Decision Tree),0.79,400
+570,Neural Network,0.91,400
+571,Gradient Boosting Machine (GBM),0.931,400
+572,eXtreme Gradient Boosting Tree (xGBTree),0.931,400
+573,Logistic Regression,0.887,500
+574,Random Forests,0.93,500
+575,C5.0 (Decision Tree),0.795,500
+576,Neural Network,0.919,500
+577,Gradient Boosting Machine (GBM),0.928,500
+578,eXtreme Gradient Boosting Tree (xGBTree),0.928,500
+579,Logistic Regression,0.898,600
+580,Random Forests,0.928,600
+581,C5.0 (Decision Tree),0.804,600
+582,Neural Network,0.928,600
+583,Gradient Boosting Machine (GBM),0.956,600
+584,eXtreme Gradient Boosting Tree (xGBTree),0.956,600
+585,Logistic Regression,0.898,700
+586,Random Forests,0.931,700
+587,C5.0 (Decision Tree),0.8,700
+588,Neural Network,0.93,700
+589,Gradient Boosting Machine (GBM),0.958,700
+590,eXtreme Gradient Boosting Tree (xGBTree),0.958,700
+591,Logistic Regression,0.901,800
+592,Random Forests,0.943,800
+593,C5.0 (Decision Tree),0.832,800
+594,Neural Network,0.936,800
+595,Gradient Boosting Machine (GBM),0.96,800
+596,eXtreme Gradient Boosting Tree (xGBTree),0.96,800
+597,Logistic Regression,0.901,900
+598,Random Forests,0.943,900
+599,C5.0 (Decision Tree),0.832,900
+600,Neural Network,0.936,900
+601,Gradient Boosting Machine (GBM),0.96,900
+602,eXtreme Gradient Boosting Tree (xGBTree),0.96,900
+603,Logistic Regression,0.901,1000
+604,Random Forests,0.943,1000
+605,C5.0 (Decision Tree),0.832,1000
+606,Neural Network,0.936,1000
+607,Gradient Boosting Machine (GBM),0.96,1000
+608,eXtreme Gradient Boosting Tree (xGBTree),0.96,1000
