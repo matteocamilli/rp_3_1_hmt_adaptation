@@ -1,27 +1,9 @@
-# Classifiers
-from sklearn.model_selection import train_test_split
-from sklearn.neural_network import MLPClassifier # Neural Network
 import matplotlib.pyplot as plt
 import matplotlib
 import pandas as pd
 import numpy as np
 import seaborn as sns
-from sklearn.utils import shuffle
-# AUC calculation
-from sklearn.metrics import roc_auc_score
-# Cross-Validation
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import make_scorer
 from tqdm import tqdm
-
-from sklearn.compose import ColumnTransformer
-from sklearn.datasets import fetch_openml
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.feature_selection import SelectPercentile, chi2
 
 from joblib import dump, load
 
@@ -103,7 +85,6 @@ class MOO(Problem):
         muscle_fatigue      = self.my_regressor.predict(model_input)
         success_probability = -success_probability
         
-        # Storing of the results
         out["F"] = np.array([success_probability, muscle_fatigue])
 
     def reorganize_input_indices(self, row_modifiable, row_unmodifiable): 
@@ -115,7 +96,6 @@ class MOO(Problem):
         for (idx, cp_name) in self.row_unmodifiable_idx_map.items(): 
             new_df[cp_name] = row_unmodifiable[:, idx]
 
-        #print(new_df.iloc[0])
         return new_df
     
 if __name__ == "__main__":
