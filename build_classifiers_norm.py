@@ -28,6 +28,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.feature_selection import SelectPercentile, chi2
 
+from joblib import dump, load
+
 POINTS = 1000
 SUBSET = 1000
 SEED = 1234
@@ -167,6 +169,8 @@ nn_model = Pipeline(steps=[("preprocessor", preprocessor), ("classifier", MLPCla
 #nn_model = MLPClassifier(random_state=SEED)
 nn_model.fit(X_train, np.ravel(y_train))
 nn_model_AUC = round(roc_auc_score(y_test, nn_model.predict_proba(X_test)[:,1]), 3)
+dump(nn_model, 'classifier.joblib') 
+
 
 # Gradient Boosting Machine (GBM)
 gbm_model = Pipeline(steps=[("preprocessor", preprocessor), ("classifier", GradientBoostingClassifier(random_state=SEED))])

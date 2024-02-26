@@ -149,7 +149,7 @@ print("Building Regressors...")
 # Random Forests
 rf_model = Pipeline(steps=[("preprocessor", preprocessor), ("regressor", RandomForestRegressor(random_state=SEED, n_jobs = 10))])
 rf_model.fit(X_train, np.ravel(y_train))
-#dump(rf_model, "{}ecsa2023_rgr.joblib".format(DIR))
+dump(rf_model, "ecsa2023_rgr.joblib")
 #rf_model_AUC = round(roc_auc_score(y_test, rf_model.predict_proba(X_test)[:,1]), 3)
 
 # C5.0 (Decision Tree)
