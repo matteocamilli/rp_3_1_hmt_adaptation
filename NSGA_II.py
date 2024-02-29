@@ -1,8 +1,8 @@
-import matplotlib.pyplot as plt
+import seaborn as sns
 import matplotlib
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import seaborn as sns
 from tqdm import tqdm
 
 from joblib import dump, load
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     for i, cp in enumerate(constant_parameters): 
         row_unmodifiable_idx_map[i] = cp
 
-    result_df = pd.DataFrame(columns=feature_names)
+    result_df = pd.DataFrame(columns=all_features)
     population_size = 100
 
     for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]): 
@@ -148,8 +148,11 @@ if __name__ == "__main__":
         # print("Muscle Fatigue:", res.F[-1, 1]) 
         # print("Old solution: ", df[feature_names].to_numpy()[idx])
         # print("New solution: ", res.X[-1])
-        result_local = pd.DataFrame(res.X[-1].reshape((1, len(result_df.columns))), columns=result_df.columns)
-        result_df = pd.concat([result_df, result_local], ignore_index=True)
 
-    result_df.to_csv("dataset1000_improved.csv", index=False)
+        result_local = pd.DataFrame(columns=result_df.columns)
+        result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
+        result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
+        result_df = pd.concat([result_df, result_local], ignore_index=True)
+        
+    result_df.to_csv("dataset1000_improved_100_100.csv", index=False)
         
