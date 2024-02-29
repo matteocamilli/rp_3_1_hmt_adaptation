@@ -1,6 +1,3 @@
-import seaborn as sns
-import matplotlib
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
@@ -13,7 +10,7 @@ from pymoo.optimize import minimize
 
 DIR = "data/ecsa2023ext/"
 
-SUBSET = 1000
+SUBSET = 3
 POINTS = 1000
 
 all_features = [
@@ -65,19 +62,44 @@ constant_parameters = [
     "ROB_1_CHG",
 ]
 
+result_df_columns = [
+    "PRGS",
+    "ORCH_1_Dstop",
+    "ORCH_1_Drestart",
+    "ORCH_1_Fstop",
+    "ORCH_1_Frestart",
+    "PSCS__TAU",
+    "HUM_1_VEL",
+    "HUM_2_VEL",
+    "HUM_1_FW",
+    "HUM_1_AGE",
+    "HUM_1_STA",
+    "HUM_2_FW",
+    "HUM_2_AGE",
+    "HUM_2_STA",
+    "HUM_1_POS_X",
+    "HUM_1_POS_Y",
+    "HUM_2_POS_X",
+    "HUM_2_POS_Y",
+    "ROB_1_VEL",
+    "ROB_1_CHG",
+    "SCS",
+    "FTG"
+]
+
 class MOO(Problem):
-    def __init__(self, row_modifiable, row_unmodifiable, row_modifiable_idx_map, row_unmodifiable_idx_map, classifier_path, regressor_path,population_size,  max_variation = 0.1):
+    def __init__(self, row_unmodifiable, row_modifiable_idx_map, row_unmodifiable_idx_map, regressor_SCS_path, regressor_FTG_path, population_size):
         super().__init__(n_var=len(feature_names),
                          n_obj=2,
                          n_constr=0,  #should i add constraints for every single decision variables and also for the prediction?
-                         xl=np.array([(1 - max_variation) * val for val in row_modifiable]),  # Lower bounds for decision variables
-                         xu=np.array([(1 + max_variation) * val for val in row_modifiable]))  # Upper bounds for decision variables
+                         xl=np.array([5.0, 2.0, 0.5, 0.1, 250.0, 30.0, 30.0, 30.0]),  # Lower bounds for decision variables
+                         xu=np.array([7.5, 4.5, 0.8, 0.4, 700.0, 100.0, 100.0, 100.0 ]))  # Upper bounds for decision variables
         
         self.row_unmodifiable         = np.repeat(row_unmodifiable, population_size, axis=0)
         self.row_modifiable_idx_map   = row_modifiable_idx_map
         self.row_unmodifiable_idx_map = row_unmodifiable_idx_map
-        self.my_classifier            = load(classifier_path)
-        self.my_regressor             = load(regressor_path)
+        self.regressor_SCS            = load(regressor_SCS_path)
+        self.regressor_FTG             = load(regressor_FTG_path)
     
     def _evaluate(self, X, out, *args, **kwargs):
         model_input         = self.reorganize_input_indices(X, self.row_unmodifiable)
@@ -115,24 +137,23 @@ if __name__ == "__main__":
     for i, cp in enumerate(constant_parameters): 
         row_unmodifiable_idx_map[i] = cp
 
-    result_df = pd.DataFrame(columns=all_features)
-    population_size = 100
+    result_df = pd.DataFrame(columns=result_df_columns)
+    population_size = 50
 
     for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]): 
-        problem = MOO(
-            df[feature_names].to_numpy()[idx], 
+        problem = MOO( 
             df[constant_parameters].to_numpy()[idx].reshape((1, len(constant_parameters))), 
             row_modifiable_idx_map,
             row_unmodifiable_idx_map,
-            "./classifier.joblib",
-            "./regressor.joblib", 
+            "./regressor_SCS.joblib",
+            "./regressor_FTG.joblib", 
             population_size
         )
 
         algorithm = NSGA2(pop_size=population_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 100)
+        termination = ("n_gen", 20)
 
         # Run the optimization
         res = minimize(problem,
@@ -142,17 +163,19 @@ if __name__ == "__main__":
                     save_history=True,
                     verbose=False)
 
-        # Print the results
-        # print("Best solution found:")
-        # print("Success Probability:", res.F[-1, 0])
-        # print("Muscle Fatigue:", res.F[-1, 1]) 
-        # print("Old solution: ", df[feature_names].to_numpy()[idx])
-        # print("New solution: ", res.X[-1])
+        #Print the results
+        print("Best solution found:")
+        print("Success Probability:", res.F[-1, 0])
+        print("Muscle Fatigue:", res.F[-1, 1]) 
+        print("Old solution: ", df[feature_names].to_numpy()[idx])
+        print("New solution: ", res.X[-1])
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
         result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
+        result_local["SCS"] = -res.F[-1, 0]
+        result_local["FTG"] = res.F[-1, 1]
         result_df = pd.concat([result_df, result_local], ignore_index=True)
         
-    result_df.to_csv("dataset1000_improved_100_100.csv", index=False)
+    result_df.to_csv("dataset1000_improved", index=False)
         
