@@ -10,7 +10,7 @@ from pymoo.optimize import minimize
 
 DIR = "data/ecsa2023ext/"
 
-SUBSET = 3
+SUBSET = 1000
 POINTS = 1000
 
 all_features = [
@@ -91,7 +91,7 @@ class MOO(Problem):
     def __init__(self, row_unmodifiable, row_modifiable_idx_map, row_unmodifiable_idx_map, regressor_SCS_path, regressor_FTG_path, population_size):
         super().__init__(n_var=len(feature_names),
                          n_obj=2,
-                         n_constr=0,  #should i add constraints for every single decision variables and also for the prediction?
+                         n_constr=0,
                          xl=np.array([5.0, 2.0, 0.5, 0.1, 250.0, 30.0, 30.0, 30.0]),  # Lower bounds for decision variables
                          xu=np.array([7.5, 4.5, 0.8, 0.4, 700.0, 100.0, 100.0, 100.0 ]))  # Upper bounds for decision variables
         
@@ -103,8 +103,8 @@ class MOO(Problem):
     
     def _evaluate(self, X, out, *args, **kwargs):
         model_input         = self.reorganize_input_indices(X, self.row_unmodifiable)
-        success_probability = self.my_classifier.predict(model_input) 
-        muscle_fatigue      = self.my_regressor.predict(model_input)
+        success_probability = self.regressor_SCS.predict(model_input) 
+        muscle_fatigue      = self.regressor_FTG.predict(model_input)
         success_probability = -success_probability
         
         out["F"] = np.array([success_probability, muscle_fatigue])
@@ -164,11 +164,11 @@ if __name__ == "__main__":
                     verbose=False)
 
         #Print the results
-        print("Best solution found:")
-        print("Success Probability:", res.F[-1, 0])
-        print("Muscle Fatigue:", res.F[-1, 1]) 
-        print("Old solution: ", df[feature_names].to_numpy()[idx])
-        print("New solution: ", res.X[-1])
+        # print("Best solution found:")
+        # print("Success Probability:", -res.F[-1, 0])
+        # print("Muscle Fatigue:", res.F[-1, 1]) 
+        # print("Old solution: ", df[feature_names].to_numpy()[idx])
+        # print("New solution: ", res.X[-1])
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
