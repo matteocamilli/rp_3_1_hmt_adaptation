@@ -5,12 +5,13 @@ from tqdm import tqdm
 from joblib import dump, load
 
 from pymoo.core.problem import Problem
+from pymoo.core.problem import ElementwiseProblem
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
 
 DIR = "data/ecsa2023ext/"
 
-SUBSET = 1000
+SUBSET = 3
 POINTS = 1000
 
 all_features = [
@@ -87,37 +88,29 @@ result_df_columns = [
     "FTG"
 ]
 
-class MOO(Problem):
-    def __init__(self, row_unmodifiable, row_modifiable_idx_map, row_unmodifiable_idx_map, regressor_SCS_path, regressor_FTG_path, population_size):
+class MOO(ElementwiseProblem):
+    def __init__(self, row_unmodifiable, regressor_SCS_path, regressor_FTG_path):
         super().__init__(n_var=len(feature_names),
                          n_obj=2,
                          n_constr=0,
                          xl=np.array([5.0, 2.0, 0.5, 0.1, 250.0, 30.0, 30.0, 30.0]),  # Lower bounds for decision variables
                          xu=np.array([7.5, 4.5, 0.8, 0.4, 700.0, 100.0, 100.0, 100.0 ]))  # Upper bounds for decision variables
         
-        self.row_unmodifiable         = np.repeat(row_unmodifiable, population_size, axis=0)
-        self.row_modifiable_idx_map   = row_modifiable_idx_map
-        self.row_unmodifiable_idx_map = row_unmodifiable_idx_map
+        self.row_unmodifiable         = row_unmodifiable
         self.regressor_SCS            = load(regressor_SCS_path)
-        self.regressor_FTG             = load(regressor_FTG_path)
+        self.regressor_FTG            = load(regressor_FTG_path)
     
     def _evaluate(self, X, out, *args, **kwargs):
         model_input         = self.reorganize_input_indices(X, self.row_unmodifiable)
         success_probability = self.regressor_SCS.predict(model_input) 
         muscle_fatigue      = self.regressor_FTG.predict(model_input)
         success_probability = -success_probability
-        
         out["F"] = np.array([success_probability, muscle_fatigue])
 
     def reorganize_input_indices(self, row_modifiable, row_unmodifiable): 
         new_df = pd.DataFrame(columns=all_features)
-
-        for (idx, fn_name) in self.row_modifiable_idx_map.items(): 
-            new_df[fn_name] = row_modifiable[:, idx]
-
-        for (idx, cp_name) in self.row_unmodifiable_idx_map.items(): 
-            new_df[cp_name] = row_unmodifiable[:, idx]
-
+        new_df[feature_names] = row_modifiable
+        new_df[constant_parameters] = row_unmodifiable
         return new_df
     
 if __name__ == "__main__":
@@ -125,32 +118,17 @@ if __name__ == "__main__":
     ## Load initial dataset
     df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS)).head(SUBSET)
 
-    ## Filter out all the variables that we should use as decision variables
-    df_decision_vars = df[feature_names]
-
-    row_modifiable_idx_map = {}
-    row_unmodifiable_idx_map = {}
-
-    for i, fn in enumerate(feature_names): 
-        row_modifiable_idx_map[i] = fn
-
-    for i, cp in enumerate(constant_parameters): 
-        row_unmodifiable_idx_map[i] = cp
-
     result_df = pd.DataFrame(columns=result_df_columns)
-    population_size = 50
 
     for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]): 
+        
         problem = MOO( 
-            df[constant_parameters].to_numpy()[idx].reshape((1, len(constant_parameters))), 
-            row_modifiable_idx_map,
-            row_unmodifiable_idx_map,
+            df[constant_parameters].to_numpy()[idx].reshape((1, len(constant_parameters))),
             "./regressor_SCS.joblib",
             "./regressor_FTG.joblib", 
-            population_size
         )
 
-        algorithm = NSGA2(pop_size=population_size)
+        algorithm = NSGA2(pop_size=50)
 
         # Define the termination criteria
         termination = ("n_gen", 20)
