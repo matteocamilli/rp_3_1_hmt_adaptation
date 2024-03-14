@@ -139,11 +139,11 @@ if __name__ == "__main__":
         
         problem = MOO( 
             df[constant_parameters].to_numpy()[idx].reshape((1, len(constant_parameters))),
-            "./regressor_SCS.joblib",
-            "./regressor_FTG.joblib", 
+            "./regressors/regressor_SCS.joblib",
+            "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size = 50
+        pop_size = 100
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
