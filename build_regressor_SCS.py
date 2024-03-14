@@ -148,7 +148,7 @@ print("Building Regressors...")
 #lr_model_AUC = round(roc_auc_score(y_test, lr_model.predict_proba(X_test)[:,1]), 3)
 
 # Random Forests
-rf_model = Pipeline(steps=[("preprocessor", preprocessor), ("regressor", RandomForestRegressor(random_state=SEED, n_jobs = 10))])
+rf_model = Pipeline(steps=[("preprocessor", preprocessor), ("regressor", RandomForestRegressor(random_state=SEED, n_jobs = 1))])
 rf_model.fit(X_train, np.ravel(y_train))
 dump(rf_model, "regressor_SCS.joblib")
 #rf_model_AUC = round(roc_auc_score(y_test, rf_model.predict_proba(X_test)[:,1]), 3)
