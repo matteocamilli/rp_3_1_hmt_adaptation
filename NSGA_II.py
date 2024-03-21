@@ -91,6 +91,14 @@ result_df_columns = [
     "FTG"
 ]
 
+class MyCallback(Callback):
+        def __init__(self) -> None:
+            super().__init__()
+            self.data["best"] = []
+
+        def notify(self, algorithm):
+            self.data["best"].append(algorithm.pop.get("F").mean())
+
 class MOO(ElementwiseProblem):
     def __init__(self, row_unmodifiable, regressor_SCS_path, regressor_FTG_path, **kwargs):
         super().__init__(n_var=len(feature_names),
@@ -118,22 +126,11 @@ class MOO(ElementwiseProblem):
         return new_df
     
 if __name__ == "__main__":
-        
-    ## Load initial dataset
     df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS)).head(SUBSET)
-
     result_df = pd.DataFrame(columns=result_df_columns)
-    n_proccess = 8
-
-    class MyCallback(Callback):
-        def __init__(self) -> None:
-            super().__init__()
-            self.data["best"] = []
-
-        def notify(self, algorithm):
-            self.data["best"].append(algorithm.pop.get("F").mean())
 
     for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]): 
+        # n_proccess = 8
         # pool = Pool(n_proccess)
         # runner = StarmapParallelization(pool.starmap)
         
@@ -158,24 +155,14 @@ if __name__ == "__main__":
                     callback=MyCallback(),
                     verbose=False)
 
-        #Print the results
-        # print("Best solution found:")
-        # print("Success Probability:", -res.F[-1, 0])
-        # print("Muscle Fatigue:", res.F[-1, 1]) 
-        # print("Old solution: ", df[feature_names].to_numpy()[idx])
-        # print("New solution: ", res.X[-1])
-
-        #Plotting some stuffs 
         val = res.algorithm.callback.data["best"]
         plt.plot(np.arange(len(val)), val)
         plt.xlabel('Number of generation')
-        plt.ylabel('Objectives values')
+        plt.ylabel('Average objectives values')
         plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
         folder_path = 'plots_folder'
         plt.savefig(os.path.join(folder_path, f'plot_{idx}.png'))
         plt.close()
-
-        #pool.close()  
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
@@ -183,7 +170,6 @@ if __name__ == "__main__":
         result_local["SCS"] = -res.F[-1, 0]
         result_local["FTG"] = res.F[-1, 1]
         result_df = pd.concat([result_df, result_local], ignore_index=True)
-
         
-    result_df.to_csv("dataset1000_improved", index=False)
+    result_df.to_csv("dataset1000_improved.csv", index=False)
         
