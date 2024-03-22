@@ -3,6 +3,7 @@ import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import os
+import random
 
 from joblib import dump, load
 from multiprocessing.pool import Pool
@@ -13,8 +14,7 @@ from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
 
 DIR = "data/ecsa2023ext/"
-
-SUBSET = 20
+SUBSET = 1000
 POINTS = 1000
 
 all_features = [
@@ -94,11 +94,12 @@ result_df_columns = [
 class MyCallback(Callback):
         def __init__(self) -> None:
             super().__init__()
-            self.data["best"] = []
-
+            self.data["bestSCS"] = []
+            self.data["bestFTG"] = []
+        
         def notify(self, algorithm):
-            self.data["best"].append(algorithm.pop.get("F").mean())
-
+            self.data["bestSCS"].append((algorithm.pop.get("F")[: , [0]]*(-1)).mean())           
+            self.data["bestFTG"].append((algorithm.pop.get("F")[: ,[1]]).mean())
 class MOO(ElementwiseProblem):
     def __init__(self, row_unmodifiable, regressor_SCS_path, regressor_FTG_path, **kwargs):
         super().__init__(n_var=len(feature_names),
@@ -126,10 +127,11 @@ class MOO(ElementwiseProblem):
         return new_df
     
 if __name__ == "__main__":
-    df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS)).head(SUBSET)
+    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
+    
     result_df = pd.DataFrame(columns=result_df_columns)
 
-    for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]): 
+    for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]):  
         # n_proccess = 8
         # pool = Pool(n_proccess)
         # runner = StarmapParallelization(pool.starmap)
@@ -140,7 +142,7 @@ if __name__ == "__main__":
             "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size = 100
+        pop_size =20
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
@@ -155,21 +157,22 @@ if __name__ == "__main__":
                     callback=MyCallback(),
                     verbose=False)
 
-        val = res.algorithm.callback.data["best"]
-        plt.plot(np.arange(len(val)), val)
-        plt.xlabel('Number of generation')
-        plt.ylabel('Average objectives values')
-        plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
-        folder_path = 'plots_folder'
-        plt.savefig(os.path.join(folder_path, f'plot_{idx}.png'))
-        plt.close()
+        # valSCS = res.algorithm.callback.data["bestSCS"]
+        # valFTG = res.algorithm.callback.data["bestFTG"]
+        # plt.plot(np.arange(len(valSCS)), valSCS)
+        # plt.plot(np.arange(len(valFTG)), valFTG)
+        # plt.xlabel('Number of generation')
+        # plt.ylabel('Objectives functions values')
+        # plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
+        # folder_path = 'plots_folder_20_20'
+        # plt.savefig(os.path.join(folder_path, f'plot_{idx}.png'))
+        # plt.close()
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
         result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
         result_local["SCS"] = -res.F[-1, 0]
-        result_local["FTG"] = res.F[-1, 1]
-        result_df = pd.concat([result_df, result_local], ignore_index=True)
+        result_local["FTG"] = res.F[-1, 1]        
+        result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
-    result_df.to_csv("dataset1000_improved.csv", index=False)
-        
+    result_df.to_csv("initial_configurations_improved.csv", index=False)
