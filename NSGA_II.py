@@ -142,7 +142,7 @@ if __name__ == "__main__":
             "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size =20
+        pop_size =40
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria

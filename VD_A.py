@@ -1,31 +1,14 @@
-import pandas as pd
-import numpy as np
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import os
-from joblib import dump, load
-from scipy.stats import wilcoxon
 import itertools as it
+
 from bisect import bisect_left
 from typing import List
+
 import numpy as np
 import pandas as pd
 import scipy.stats as ss
+
 from pandas import Categorical
 
-
-regressor_SCS_path = "./regressors/regressor_SCS.joblib"
-regressor_FTG_path = "./regressors/regressor_FTG.joblib"
-df_path = "additional_datasets/randomly_generated_configuration.csv"
-df2_path = "initial_configurations_improved.csv"
-features = ["SCS", "FTG"]
-
-def calculateRegression(df): 
-    regressor_SCS = load(regressor_SCS_path)
-    regressor_FTG = load(regressor_FTG_path)
-    random_success_probability = regressor_SCS.predict(df) 
-    random_muscle_fatigue      = regressor_FTG.predict(df)
-    return (random_success_probability, random_muscle_fatigue)
 
 def VD_A(treatment: List[float], control: List[float]):
     """
@@ -115,24 +98,31 @@ def VD_A_DF(data, val_col: str = None, group_col: str = None, sort=True):
     })
 
 
-if __name__ == "__main__":
-    df = pd.read_csv(df_path)
-    result_df = pd.DataFrame(columns = features)
-    
-    for idx, row in df.iterrows(): 
-        regressors_input = pd.DataFrame([row])
-        random_values    = calculateRegression(regressors_input)
-        result_local     = pd.DataFrame(columns=result_df.columns)
-        result_local[features] = [random_values]
-        result_df              = pd.concat([result_df, result_local], ignore_index=True)
+if __name__ == '__main__':
+    # Examples
 
-    df2 = pd.read_csv(df2_path)
+    # negligible
+    F = [0.8236111111111111, 0.7966666666666666, 0.923611111111111, 0.8197222222222222, 0.7108333333333333]
+    G = [0.8052777777777779, 0.8172222222222221, 0.8322222222222223, 0.783611111111111, 0.8141666666666666]
+    print(VD_A(G, F))
 
-    NSGAII_SCS_FTG_values = df2[features].to_numpy().flatten()
-    random_SCS_FTG_values = result_df.to_numpy().flatten()
+    # small
+    A = [0.478515625, 0.4638671875, 0.4638671875, 0.4697265625, 0.4638671875, 0.474609375, 0.4814453125, 0.4814453125,
+         0.4697265625, 0.4814453125, 0.474609375, 0.4833984375, 0.484375, 0.44921875, 0.474609375, 0.484375,
+         0.4814453125, 0.4638671875, 0.484375, 0.478515625, 0.478515625, 0.45703125, 0.484375, 0.419921875,
+         0.4833984375, 0.478515625, 0.4697265625, 0.484375, 0.478515625, 0.4638671875]
+    B = [0.4814453125, 0.478515625, 0.44921875, 0.4814453125, 0.4638671875, 0.478515625, 0.474609375, 0.4638671875,
+         0.474609375, 0.44921875, 0.474609375, 0.478515625, 0.478515625, 0.474609375, 0.4697265625, 0.474609375,
+         0.45703125, 0.4697265625, 0.478515625, 0.4697265625, 0.4697265625, 0.484375, 0.45703125, 0.474609375,
+         0.474609375, 0.4638671875, 0.45703125, 0.474609375, 0.4638671875, 0.4306640625]
 
-    #missing: effective size analysis over the two samples   
-    res = wilcoxon(NSGAII_SCS_FTG_values, random_SCS_FTG_values)
-    
-    print(res.pvalue, res.statistic)
-    print(VD_A(NSGAII_SCS_FTG_values, random_SCS_FTG_values))
+    print(VD_A(A, B))
+
+    # medium
+    C = [0.9108333333333334, 0.8755555555555556, 0.900277777777778, 0.9274999999999999, 0.8777777777777779]
+    E = [0.8663888888888888, 0.8802777777777777, 0.7816666666666667, 0.8377777777777776, 0.9305555555555556]
+    print(VD_A(C, E))
+
+    # Large
+    D = [0.7202777777777778, 0.77, 0.8544444444444445, 0.7947222222222222, 0.7577777777777778]
+    print(VD_A(C, D))
