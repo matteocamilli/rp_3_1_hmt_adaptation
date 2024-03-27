@@ -131,9 +131,7 @@ if __name__ == "__main__":
     df2 = pd.read_csv(df2_path)
 
     NSGAII_SCS_FTG_values = df2[features].to_numpy().flatten()
-    random_SCS_FTG_values = result_df.to_numpy().flatten()
-
-    #missing: effective size analysis over the two samples   
+    random_SCS_FTG_values = result_df.to_numpy().flatten()  
     res = wilcoxon(NSGAII_SCS_FTG_values, random_SCS_FTG_values)
     
     print(res.pvalue, res.statistic)
