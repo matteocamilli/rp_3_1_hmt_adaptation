@@ -13,11 +13,13 @@ import pandas as pd
 import scipy.stats as ss
 from pandas import Categorical
 
-
+DIR = "additional_datasets/"
+POPSIZE = 40
+NGEN = 40
 regressor_SCS_path = "./regressors/regressor_SCS.joblib"
 regressor_FTG_path = "./regressors/regressor_FTG.joblib"
-df_path = "additional_datasets/randomly_generated_configuration.csv"
-df2_path = "initial_configurations_improved.csv"
+df_path = "{}randomly_generated_configuration.csv".format(DIR)
+df2_path = "{}configurations_improved_{}_{}.csv".format(DIR, POPSIZE, NGEN)
 features = ["SCS", "FTG"]
 
 def calculateRegression(df): 

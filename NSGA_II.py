@@ -142,11 +142,11 @@ if __name__ == "__main__":
             "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size =40
+        pop_size =20
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 20)
+        termination = ("n_gen", 40)
 
         # Run the optimization
         res = minimize(problem,
@@ -175,4 +175,4 @@ if __name__ == "__main__":
         result_local["FTG"] = res.F[-1, 1]        
         result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
-    result_df.to_csv("initial_configurations_improved.csv", index=False)
+    result_df.to_csv("configurations_improved_20_40.csv", index=False)
