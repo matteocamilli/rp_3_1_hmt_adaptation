@@ -127,7 +127,7 @@ class MOO(ElementwiseProblem):
         return new_df
     
 if __name__ == "__main__":
-    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
+    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv", nrows=20)
     
     result_df = pd.DataFrame(columns=result_df_columns)
 
@@ -146,7 +146,7 @@ if __name__ == "__main__":
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 40)
+        termination = ("n_gen", 20)
 
         # Run the optimization
         res = minimize(problem,
@@ -157,16 +157,13 @@ if __name__ == "__main__":
                     callback=MyCallback(),
                     verbose=False)
 
-        # valSCS = res.algorithm.callback.data["bestSCS"]
-        # valFTG = res.algorithm.callback.data["bestFTG"]
-        # plt.plot(np.arange(len(valSCS)), valSCS)
-        # plt.plot(np.arange(len(valFTG)), valFTG)
-        # plt.xlabel('Number of generation')
-        # plt.ylabel('Objectives functions values')
-        # plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
-        # folder_path = 'plots_folder_20_20'
-        # plt.savefig(os.path.join(folder_path, f'plot_{idx}.png'))
-        # plt.close()
+        valSCS = res.algorithm.callback.data["bestSCS"]
+        valFTG = res.algorithm.callback.data["bestFTG"]
+        plt.plot(np.arange(len(valSCS)), valSCS)
+        plt.plot(np.arange(len(valFTG)), valFTG)
+        plt.xlabel('Number of generation')
+        plt.ylabel('Objectives functions values')
+        plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
@@ -176,3 +173,5 @@ if __name__ == "__main__":
         result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
     result_df.to_csv("configurations_improved_20_40.csv", index=False)
+    plt.savefig('plot.png')
+    plt.close()

@@ -51,7 +51,6 @@ result_df_columns = [
     "ROB_1_CHG",
 ]
 
-
 df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS))
 df = df.loc[(df['FTG_HUM_1'] >= 0.2) & (df['SCS'] < 1)]
 
