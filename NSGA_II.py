@@ -163,7 +163,7 @@ if __name__ == "__main__":
         plt.plot(np.arange(len(valFTG)), valFTG)
         plt.xlabel('Number of generation')
         plt.ylabel('Objectives functions values')
-        plt.title(f'Initial configuration number {idx}, population size: {pop_size}') 
+        plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
 
         result_local = pd.DataFrame(columns=result_df.columns)
         result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
@@ -172,6 +172,6 @@ if __name__ == "__main__":
         result_local["FTG"] = res.F[-1, 1]        
         result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
-    result_df.to_csv("configurations_improved_20_40.csv", index=False)
-    plt.savefig('plot.png')
+    #result_df.to_csv("configurations_improved_20_40.csv", index=False)
+    plt.savefig(f'results_validation/plots_and_tables/distributions_{termination[1]}_{pop_size}.png')
     plt.close()
