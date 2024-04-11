@@ -35,9 +35,9 @@ metrics_dataset_columns = ["Metric", "Configurations", "p-value", "Effect_size"]
 def calculateRegression(df): 
     regressor_SCS = load(regressor_SCS_path)
     regressor_FTG = load(regressor_FTG_path)
-    random_success_probability = regressor_SCS.predict(df) 
+    random_success_probability = regressor_SCS.predict(df)
     random_muscle_fatigue      = regressor_FTG.predict(df)
-    return (random_success_probability, random_muscle_fatigue)
+    return (random_success_probability.item(), random_muscle_fatigue.item())
 
 def VD_A(treatment: List[float], control: List[float]):
     """
@@ -61,7 +61,8 @@ def VD_A(treatment: List[float], control: List[float]):
     if m != n:
         raise ValueError("Data d and f must have the same length")
 
-    r = ss.rankdata(treatment + control)
+    sample = np.concatenate([treatment, control])
+    r = ss.rankdata(sample)
     r1 = sum(r[0:m])
 
     # Compute the measure
@@ -131,10 +132,11 @@ if __name__ == "__main__":
     result_df = pd.DataFrame(columns = features)
     
     for idx, row in df.iterrows(): 
-        regressors_input = pd.DataFrame([row])
-        random_values    = calculateRegression(regressors_input)
-        result_local     = pd.DataFrame(columns=result_df.columns)
-        result_local[features] = [random_values]
+        regressors_input       = pd.DataFrame([row])
+        random_SCS, random_FTG = calculateRegression(regressors_input)
+        result_local           = pd.DataFrame(columns=result_df.columns)
+        result_local["SCS"]    = [random_SCS]
+        result_local["FTG"]    = [random_FTG]
         result_df              = pd.concat([result_df, result_local], ignore_index=True)
     random_SCS_FTG_values = result_df
     
@@ -152,32 +154,35 @@ if __name__ == "__main__":
             df_local.loc[0, "Metric"]  = j
             df_local["Configurations"] = combinations[i]
             df_local["p-value"]        = res.pvalue
-            df_local["Effect_size"]    = VD_A(NSGAII_values[i]["SCS"], random_SCS_FTG_values["SCS"])
-
+            df_local["Effect_size"]    = VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j])
             final_df                   = pd.concat([final_df, df_local], ignore_index=True)
-    final_df.to_csv("metrics_table.csv", index=False)
+    final_df.to_csv("results_validation/plots_and_tables/metrics_table.csv", index=False)
 
+    for j in features:
+        for i in range(4):
+            print(VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j]))
     
-    for idx, i in enumerate(NSGAII_values):
-        plt.boxplot([i["SCS"]], positions=[idx+1], widths=0.6) 
-    random_SCS_values = random_SCS_FTG_values["SCS"]
-    plt.boxplot([random_SCS_values], positions=[5], widths=0.6) 
-    plt.title('Distributions of Pscs')
-    plt.ylabel('Pscs')
-    plt.xlabel('Types of configuration generation')
-    plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('SCS_boxplot.png')
-    plt.close()
 
-    for idx, i in enumerate(NSGAII_values):
-        plt.boxplot([i["FTG"]], positions=[idx+1], widths=0.6) 
-    random_FTG_values = random_SCS_FTG_values["FTG"]
-    plt.boxplot([random_FTG_values], positions=[5], widths=0.6) 
-    plt.title('Distributions of FTG')
-    plt.ylabel('FTG')
-    plt.xlabel('Types of configuration generation')
-    plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('FTG_boxplot.png')
-    plt.close()
+    # for idx, i in enumerate(NSGAII_values):
+    #     plt.boxplot([i["SCS"]], positions=[idx+1], widths=0.6) 
+    # random_SCS_values = random_SCS_FTG_values["SCS"]
+    # plt.boxplot([random_SCS_values], positions=[5], widths=0.6) 
+    # plt.title('Distributions of Pscs')
+    # plt.ylabel('Pscs')
+    # plt.xlabel('Types of configuration generation')
+    # plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
+    # plt.savefig('SCS_boxplot.png')
+    # plt.close()
+
+    # for idx, i in enumerate(NSGAII_values):
+    #     plt.boxplot([i["FTG"]], positions=[idx+1], widths=0.6) 
+    # random_FTG_values = random_SCS_FTG_values["FTG"]
+    # plt.boxplot([random_FTG_values], positions=[5], widths=0.6) 
+    # plt.title('Distributions of FTG')
+    # plt.ylabel('FTG')
+    # plt.xlabel('Types of configuration generation')
+    # plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
+    # plt.savefig('FTG_boxplot.png')
+    # plt.close()
 
     
