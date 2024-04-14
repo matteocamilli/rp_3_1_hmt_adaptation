@@ -19,6 +19,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import make_scorer
 from joblib import dump
+import sys
 
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -139,6 +140,9 @@ y = dataset[["PRSCS_LB", "PRSCS_UB"]].mean(axis=1)
 y = y.to_numpy()
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SEED)
+X_train.to_csv("regressors/X_train", index=False)
+
+sys.exit()
 
 print("Building Regressors...")
 

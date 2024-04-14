@@ -100,6 +100,7 @@ class MyCallback(Callback):
         def notify(self, algorithm):
             self.data["bestSCS"].append((algorithm.pop.get("F")[: , [0]]*(-1)).mean())           
             self.data["bestFTG"].append((algorithm.pop.get("F")[: ,[1]]).mean())
+
 class MOO(ElementwiseProblem):
     def __init__(self, row_unmodifiable, regressor_SCS_path, regressor_FTG_path, **kwargs):
         super().__init__(n_var=len(feature_names),
@@ -125,14 +126,16 @@ class MOO(ElementwiseProblem):
         new_df[feature_names] = row_modifiable
         new_df[constant_parameters] = row_unmodifiable
         return new_df
-    
+
 if __name__ == "__main__":
-    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv", nrows=20)
+    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
     
     result_df = pd.DataFrame(columns=result_df_columns)
+    val_SCS_averaged = []
+    val_FTG_averaged = []
 
     for idx, (_, row) in tqdm(enumerate(df.iterrows()), total=df.shape[0]):  
-        # n_proccess = 8
+        # n_proccess = 8 
         # pool = Pool(n_proccess)
         # runner = StarmapParallelization(pool.starmap)
         
@@ -146,7 +149,7 @@ if __name__ == "__main__":
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 40)
+        termination = ("n_gen", 20)
 
         # Run the optimization
         res = minimize(problem,
@@ -159,11 +162,13 @@ if __name__ == "__main__":
 
         valSCS = res.algorithm.callback.data["bestSCS"]
         valFTG = res.algorithm.callback.data["bestFTG"]
-        plt.plot(np.arange(len(valSCS)), valSCS)
-        plt.plot(np.arange(len(valFTG)), valFTG)
-        plt.xlabel('Number of generation')
-        plt.ylabel('Objectives functions values')
-        plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
+        val_SCS_averaged.append(valSCS)
+        val_FTG_averaged.append(valFTG)
+        # plt.plot(np.arange(len(valSCS)), valSCS)
+        # plt.plot(np.arange(len(valFTG)), valFTG)
+        # plt.xlabel('Number of generation')
+        # plt.ylabel('Objectives functions values')
+        # plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
 
         # result_local = pd.DataFrame(columns=result_df.columns)
         # result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
@@ -173,5 +178,13 @@ if __name__ == "__main__":
         # result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
     #result_df.to_csv("configurations_improved_20_40.csv", index=False)
-    plt.savefig(f'results_validation/plots_and_tables/distributions_{termination[1]}_{pop_size}.png')
+    val_SCS_averaged = np.mean(val_SCS_averaged, axis = 0)
+    val_FTG_averaged = np.mean(val_FTG_averaged, axis = 0)
+    plt.plot(np.arange(len(val_SCS_averaged)), val_SCS_averaged)
+    plt.plot(np.arange(len(val_FTG_averaged)), val_FTG_averaged)
+    plt.xlabel('Number of generation')
+    plt.ylabel('Objectives functions values')
+    plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
+
+    plt.savefig(f'results_validation/plots_and_tables/distributions_{termination[1]}_{pop_size}_averaged.png')
     plt.close()

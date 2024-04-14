@@ -12,6 +12,9 @@ import numpy as np
 import pandas as pd
 import scipy.stats as ss
 from pandas import Categorical
+import lime
+import lime.lime_tabular
+import sys
 
 DIR = "additional_datasets/"
 # POPSIZE = 40
@@ -21,11 +24,55 @@ regressor_FTG_path = "./regressors/regressor_FTG.joblib"
 
 combinations = ["20-20/random", "20-40/random", "40-20/random", "40-40/random",]
 
+all_features = [
+    "PRGS",
+    "ORCH_1_Dstop",
+    "ORCH_1_Drestart",
+    "ORCH_1_Fstop",
+    "ORCH_1_Frestart",
+    "PSCS__TAU",
+    "HUM_1_VEL",
+    "HUM_2_VEL",
+    "HUM_1_FW",
+    "HUM_1_AGE",
+    "HUM_1_STA",
+    "HUM_2_FW",
+    "HUM_2_AGE",
+    "HUM_2_STA",
+    "HUM_1_POS_X",
+    "HUM_1_POS_Y",
+    "HUM_2_POS_X",
+    "HUM_2_POS_Y",
+    "ROB_1_VEL",
+    "ROB_1_CHG"
+]
+
 NSGA_datasets_paths = [
     "additional_datasets/configurations_improved_20_20.csv",
     "additional_datasets/configurations_improved_20_40.csv",
     "additional_datasets/configurations_improved_40_20.csv",
     "additional_datasets/configurations_improved_40_40.csv"
+]
+
+feature_names = [ 
+    "ORCH_1_Dstop",
+    "ORCH_1_Drestart",
+    "ORCH_1_Fstop",
+    "ORCH_1_Frestart",
+    "PSCS__TAU",
+    "HUM_1_VEL",
+    "HUM_2_VEL",
+    "ROB_1_VEL"
+]
+
+categorical_features = [
+    "PRGS",
+    "HUM_1_FW",
+    "HUM_1_AGE",
+    "HUM_1_STA",
+    "HUM_2_FW",
+    "HUM_2_AGE",
+    "HUM_2_STA"
 ]
 
 df_path = "{}randomly_generated_configuration.csv".format(DIR)
@@ -145,7 +192,28 @@ if __name__ == "__main__":
         df = pd.read_csv(file_name)
         NSGAII_values.append(df[features])
 
+    X_train = pd.read_csv("regressors/X_train")
+
+    # Initialize LimeTabularExplainer
+    explainer = lime.lime_tabular.LimeTabularExplainer(X_train, 
+                                                    feature_names=feature_names, 
+                                                    categorical_features=categorical_features, 
+                                                    verbose=True, 
+                                                    mode='regression')
+    df = pd.read_csv("additional_datasets/configurations_improved_20_20.csv")
+
+    # Choose a specific data point to analyze
+    i = 10
+
+    regressor = load(regressor_SCS_path)
+    # Explain the instance
+    exp = explainer.explain_instance(df[all_features].iloc[i], regressor.predict, num_features=len(feature_names))
+    fig = exp.as_pyplot_figure()
+    fig.savefig('lime_explanation.png')
+    plt.close(fig)
    
+    sys.exit()
+
     final_df = pd.DataFrame(columns = metrics_dataset_columns)
     for j in features:
         for i in range(4):
@@ -156,33 +224,29 @@ if __name__ == "__main__":
             df_local["p-value"]        = res.pvalue
             df_local["Effect_size"]    = VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j])
             final_df                   = pd.concat([final_df, df_local], ignore_index=True)
-    final_df.to_csv("results_validation/plots_and_tables/metrics_table.csv", index=False)
+    final_df.to_csv("results_validation/plots_and_tables/metrics_table.csv", index=False)    
 
-    for j in features:
-        for i in range(4):
-            print(VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j]))
+    for idx, i in enumerate(NSGAII_values):
+        plt.boxplot([i["SCS"]], positions=[idx+1], widths=0.6) 
+    random_SCS_values = random_SCS_FTG_values["SCS"]
+    plt.boxplot([random_SCS_values], positions=[5], widths=0.6) 
+    plt.title('Distributions of Pscs')
+    plt.ylabel('Pscs')
+    plt.xlabel('Types of configuration generation')
+    plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
+    plt.savefig('SCS_boxplot.png')
+    plt.close()
+
+    for idx, i in enumerate(NSGAII_values):
+        plt.boxplot([i["FTG"]], positions=[idx+1], widths=0.6) 
+    random_FTG_values = random_SCS_FTG_values["FTG"]
+    plt.boxplot([random_FTG_values], positions=[5], widths=0.6) 
+    plt.title('Distributions of FTG')
+    plt.ylabel('FTG')
+    plt.xlabel('Types of configuration generation')
+    plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
+    plt.savefig('FTG_boxplot.png')
+    plt.close()
     
-
-    # for idx, i in enumerate(NSGAII_values):
-    #     plt.boxplot([i["SCS"]], positions=[idx+1], widths=0.6) 
-    # random_SCS_values = random_SCS_FTG_values["SCS"]
-    # plt.boxplot([random_SCS_values], positions=[5], widths=0.6) 
-    # plt.title('Distributions of Pscs')
-    # plt.ylabel('Pscs')
-    # plt.xlabel('Types of configuration generation')
-    # plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    # plt.savefig('SCS_boxplot.png')
-    # plt.close()
-
-    # for idx, i in enumerate(NSGAII_values):
-    #     plt.boxplot([i["FTG"]], positions=[idx+1], widths=0.6) 
-    # random_FTG_values = random_SCS_FTG_values["FTG"]
-    # plt.boxplot([random_FTG_values], positions=[5], widths=0.6) 
-    # plt.title('Distributions of FTG')
-    # plt.ylabel('FTG')
-    # plt.xlabel('Types of configuration generation')
-    # plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    # plt.savefig('FTG_boxplot.png')
-    # plt.close()
 
     
