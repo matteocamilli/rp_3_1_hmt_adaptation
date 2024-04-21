@@ -127,10 +127,48 @@ class MOO(ElementwiseProblem):
         new_df[constant_parameters] = row_unmodifiable
         return new_df
 
+def processDataframe(df):
+    freewill_mapping = {
+    "foc" : 0,
+    "distr" : 1,
+    "free" : 2
+    }
+
+    age_mapping = {
+        "y" : 0,
+        "e" : 1
+    }
+
+    health_mapping = {
+        "h" : 0,
+        "s" : 1,
+        "u" : 2
+    }
+
+    transformations = {
+        'HUM_1_FW': freewill_mapping,
+        'HUM_2_FW': freewill_mapping,
+        'HUM_1_AGE': age_mapping,
+        'HUM_2_AGE': age_mapping,
+        'HUM_1_STA': health_mapping,
+        'HUM_2_STA': health_mapping
+    }
+
+    def clean(dataset):
+        X = dataset[all_features]
+        for t in transformations:
+            X = X.replace({t: transformations[t]})
+        return X
+
+    X = clean(df)
+    return X
+
 if __name__ == "__main__":
     df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
+    df = processDataframe(df)
     
     result_df = pd.DataFrame(columns=result_df_columns)
+    
     val_SCS_averaged = []
     val_FTG_averaged = []
 
@@ -145,11 +183,11 @@ if __name__ == "__main__":
             "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size =20
+        pop_size =40
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 20)
+        termination = ("n_gen", 40)
 
         # Run the optimization
         res = minimize(problem,
@@ -170,21 +208,21 @@ if __name__ == "__main__":
         # plt.ylabel('Objectives functions values')
         # plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
 
-        # result_local = pd.DataFrame(columns=result_df.columns)
-        # result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
-        # result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
-        # result_local["SCS"] = -res.F[-1, 0]
-        # result_local["FTG"] = res.F[-1, 1]        
-        # result_df = pd.concat([result_df, result_local], ignore_index=True)       
+        result_local = pd.DataFrame(columns=result_df.columns)
+        result_local[feature_names] = res.X[-1].reshape((1, len(feature_names)))
+        result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
+        result_local["SCS"] = -res.F[-1, 0]
+        result_local["FTG"] = res.F[-1, 1]        
+        result_df = pd.concat([result_df, result_local], ignore_index=True)       
         
-    #result_df.to_csv("configurations_improved_20_40.csv", index=False)
+    result_df.to_csv(f"additional_datasets/configurations_improved_{termination[1]}_{pop_size}.csv", index=False)
     val_SCS_averaged = np.mean(val_SCS_averaged, axis = 0)
     val_FTG_averaged = np.mean(val_FTG_averaged, axis = 0)
-    plt.plot(np.arange(len(val_SCS_averaged)), val_SCS_averaged)
-    plt.plot(np.arange(len(val_FTG_averaged)), val_FTG_averaged)
+    plt.plot(np.arange(len(val_SCS_averaged)), val_SCS_averaged, label = "SCS")
+    plt.plot(np.arange(len(val_FTG_averaged)), val_FTG_averaged, label = "FTG")
     plt.xlabel('Number of generation')
     plt.ylabel('Objectives functions values')
     plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
-
+    plt.legend()
     plt.savefig(f'results_validation/plots_and_tables/distributions_{termination[1]}_{pop_size}_averaged.png')
     plt.close()

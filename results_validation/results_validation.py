@@ -15,6 +15,11 @@ from pandas import Categorical
 import lime
 import lime.lime_tabular
 import sys
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
 
 DIR = "additional_datasets/"
 # POPSIZE = 40
@@ -79,6 +84,7 @@ df_path = "{}randomly_generated_configuration.csv".format(DIR)
 # df2_path = "{}configurations_improved_{}_{}.csv".format(DIR, POPSIZE, NGEN)
 features = ["SCS", "FTG"]
 metrics_dataset_columns = ["Metric", "Configurations", "p-value", "Effect_size"]
+
 def calculateRegression(df): 
     regressor_SCS = load(regressor_SCS_path)
     regressor_FTG = load(regressor_FTG_path)
@@ -192,28 +198,6 @@ if __name__ == "__main__":
         df = pd.read_csv(file_name)
         NSGAII_values.append(df[features])
 
-    X_train = pd.read_csv("regressors/X_train")
-
-    # Initialize LimeTabularExplainer
-    explainer = lime.lime_tabular.LimeTabularExplainer(X_train, 
-                                                    feature_names=feature_names, 
-                                                    categorical_features=categorical_features, 
-                                                    verbose=True, 
-                                                    mode='regression')
-    df = pd.read_csv("additional_datasets/configurations_improved_20_20.csv")
-
-    # Choose a specific data point to analyze
-    i = 10
-
-    regressor = load(regressor_SCS_path)
-    # Explain the instance
-    exp = explainer.explain_instance(df[all_features].iloc[i], regressor.predict, num_features=len(feature_names))
-    fig = exp.as_pyplot_figure()
-    fig.savefig('lime_explanation.png')
-    plt.close(fig)
-   
-    sys.exit()
-
     final_df = pd.DataFrame(columns = metrics_dataset_columns)
     for j in features:
         for i in range(4):
@@ -248,5 +232,24 @@ if __name__ == "__main__":
     plt.savefig('FTG_boxplot.png')
     plt.close()
     
-
+    sys.exit()
     
+    X_train = pd.read_csv("regressors/X_train.csv")
+
+    # Initialize LimeTabularExplainer
+    explainer = lime.lime_tabular.LimeTabularExplainer(np.array(X_train), 
+                                                    feature_names=X_train.columns.values.tolist(), 
+                                                    #categorical_features=categorical_features, 
+                                                    verbose=True, 
+                                                    mode='regression')
+    df = pd.read_csv("additional_datasets/configurations_improved_20_20.csv")
+
+    # Choose a specific data point to analyze
+    i = 10
+    
+    regressor = load(regressor_SCS_path)
+    # Explain the instance
+    exp = explainer.explain_instance(df[all_features].iloc[i], regressor.predict, num_features=len(feature_names))
+    fig = exp.as_pyplot_figure()
+    fig.savefig('lime_explanation.png')
+    plt.close(fig)
