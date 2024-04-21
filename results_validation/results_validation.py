@@ -218,7 +218,7 @@ if __name__ == "__main__":
     plt.ylabel('Pscs')
     plt.xlabel('Types of configuration generation')
     plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('SCS_boxplot.png')
+    plt.savefig('results_validation/plots_and_table/SCS_boxplot.png')
     plt.close()
 
     for idx, i in enumerate(NSGAII_values):
@@ -229,7 +229,7 @@ if __name__ == "__main__":
     plt.ylabel('FTG')
     plt.xlabel('Types of configuration generation')
     plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('FTG_boxplot.png')
+    plt.savefig('results_validation/plots_and_table/FTG_boxplot.png')
     plt.close()
     
     sys.exit()
