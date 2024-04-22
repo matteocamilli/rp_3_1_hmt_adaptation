@@ -218,7 +218,7 @@ if __name__ == "__main__":
     plt.ylabel('Pscs')
     plt.xlabel('Types of configuration generation')
     plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('results_validation/plots_and_table/SCS_boxplot.png')
+    plt.savefig('results_validation/plots_and_tables/SCS_boxplot.png')
     plt.close()
 
     for idx, i in enumerate(NSGAII_values):
@@ -229,27 +229,5 @@ if __name__ == "__main__":
     plt.ylabel('FTG')
     plt.xlabel('Types of configuration generation')
     plt.xticks([1, 2, 3, 4, 5], ['20-20', '20-40', '40-20', '40-40', "random"])
-    plt.savefig('results_validation/plots_and_table/FTG_boxplot.png')
+    plt.savefig('results_validation/plots_and_tables/FTG_boxplot.png')
     plt.close()
-    
-    sys.exit()
-    
-    X_train = pd.read_csv("regressors/X_train.csv")
-
-    # Initialize LimeTabularExplainer
-    explainer = lime.lime_tabular.LimeTabularExplainer(np.array(X_train), 
-                                                    feature_names=X_train.columns.values.tolist(), 
-                                                    #categorical_features=categorical_features, 
-                                                    verbose=True, 
-                                                    mode='regression')
-    df = pd.read_csv("additional_datasets/configurations_improved_20_20.csv")
-
-    # Choose a specific data point to analyze
-    i = 10
-    
-    regressor = load(regressor_SCS_path)
-    # Explain the instance
-    exp = explainer.explain_instance(df[all_features].iloc[i], regressor.predict, num_features=len(feature_names))
-    fig = exp.as_pyplot_figure()
-    fig.savefig('lime_explanation.png')
-    plt.close(fig)
