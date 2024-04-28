@@ -22,8 +22,6 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 
 DIR = "additional_datasets/"
-# POPSIZE = 40
-# NGEN = 40
 regressor_SCS_path = "./regressors/regressor_SCS.joblib"
 regressor_FTG_path = "./regressors/regressor_FTG.joblib"
 
@@ -53,10 +51,10 @@ all_features = [
 ]
 
 NSGA_datasets_paths = [
-    "additional_datasets/configurations_improved_20_20.csv",
-    "additional_datasets/configurations_improved_20_40.csv",
-    "additional_datasets/configurations_improved_40_20.csv",
-    "additional_datasets/configurations_improved_40_40.csv"
+    "additional_datasets/improved_configurations/configurations_improved_20_20.csv",
+    "additional_datasets/improved_configurations/configurations_improved_20_40.csv",
+    "additional_datasets/improved_configurations/configurations_improved_40_20.csv",
+    "additional_datasets/improved_configurations/configurations_improved_40_40.csv"
 ]
 
 feature_names = [ 
@@ -64,7 +62,6 @@ feature_names = [
     "ORCH_1_Drestart",
     "ORCH_1_Fstop",
     "ORCH_1_Frestart",
-    "PSCS__TAU",
     "HUM_1_VEL",
     "HUM_2_VEL",
     "ROB_1_VEL"
@@ -178,7 +175,6 @@ def VD_A_DF(data, val_col: str = None, group_col: str = None, sort=True):
         'estimate': ef[:, 0],
         'magnitude': ef[:, 1]
     })
-
 
 if __name__ == "__main__":
     df = pd.read_csv(df_path)
