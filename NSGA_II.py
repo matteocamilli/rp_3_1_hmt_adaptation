@@ -177,7 +177,7 @@ def createTimeDataframe(start, end):
     return time_df
 
 if __name__ == "__main__":
-    df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
+    df = pd.read_csv("additional_datasets/initial_configuration_to_improve_random.csv")
     df = processDataframe(df)
     #time_df = pd.DataFrame(columns=["Iteration_duration", "PSCS__TAU"])
 
@@ -202,7 +202,7 @@ if __name__ == "__main__":
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
-        termination = ("n_gen", 40)
+        termination = ("n_gen", 20)
 
         # Run the optimization
         res = minimize(problem,

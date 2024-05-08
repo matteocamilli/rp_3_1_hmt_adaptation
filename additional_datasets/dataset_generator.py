@@ -52,7 +52,8 @@ result_df_columns = [
 ]
 
 df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS))
-df = df.loc[(df['FTG_HUM_1'] >= 0.2) & (df['SCS'] < 1)]
+#df = df.loc[(df['FTG_HUM_1'] >= 0.2) & (df['SCS'] < 1)]
+df_sampled = df.sample(n=100)
 
 variables_domain = [(5.0, 7.5), (2.0, 4.5), (0.5, 0.8), (0.1, 0.4), (250.0, 700.0), (30.0, 100.0), (30.0, 100.0), (30.0, 100.0)]
 result_df = pd.DataFrame(columns=result_df_columns)
@@ -106,6 +107,6 @@ for idx, (_, row) in enumerate(df.iterrows()):
 
 result_df = processDataframe(result_df)
 result_df.to_csv("additional_datasets/randomly_generated_configuration.csv", index=False)
-df.to_csv("additional_datasets/initial_configuration_to_improve.csv", index=False)
+df_sampled.to_csv("additional_datasets/initial_configuration_to_improve_random.csv", index=False)
 
 

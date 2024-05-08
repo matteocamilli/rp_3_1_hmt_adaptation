@@ -26,7 +26,7 @@ def reverseProcessDataframe(df):
     X_reversed = reverse_clean(df)
     return X_reversed
 
-df = pd.read_csv("additional_datasets/initial_configuration_to_improve.csv")
+df = pd.read_csv("additional_datasets/initial_configuration_to_improve_random.csv")
 
 column_mapping = {
     "PRGS" : "PROGRESS",
@@ -83,10 +83,10 @@ new_columns_order = [
     "FTG_HUM_2"
     ]
 
-# columns_to_add = ['PRSCS_LOWER_BOUND', 'PRSCS_UPPER_BOUND', 'FTG_HUM_1', 'FTG_HUM_2']
-# for column in columns_to_add:
-#     df[column] = '' 
+columns_to_add = ['PRSCS_LOWER_BOUND', 'PRSCS_UPPER_BOUND', 'FTG_HUM_1', 'FTG_HUM_2']
+for column in columns_to_add:
+    df[column] = '' 
 
 df = df[new_columns_order]
 
-df.to_csv("additional_datasets/df_model_checker_to_improve.csv", index=False)
+df.to_csv("additional_datasets/initial_configuration_to_improve_random.csv", index=False)
