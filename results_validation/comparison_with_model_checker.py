@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-new_columns = ["PRSCS_INIT", "PRSCS_IMPROV", "SCS", "FTG_HUM_1_INIT", "FTG_HUM_1_IMPROV", "FTG"]
+new_columns = ["PRSCS_IMPROV", "SCS", "FTG_HUM_1_IMPROV", "FTG"]
 columns = ["PRSCS", "SCS", "FTG_HUM_1", "FTG"]
 
 df_generated = pd.read_csv("additional_datasets/improved_configurations/configurations_improved_20_20.csv")
@@ -11,15 +11,23 @@ df_model_checker_improved = pd.read_csv("additional_datasets/DPa 3.csv")
 ftg_hum_1_improv = df_model_checker_improved["FTG_HUM_1"].str.split(r'\+-', expand=True)[0].astype(float)
 
 df_model_checker_improved = df_model_checker_improved.fillna({'FTG_HUM_1' : 0, "PRSCS_LOWER_BOUND" : 0.9, "PRSCS_UPPER_BOUND": 1})
+df_model_checker_improved = df_model_checker_improved[df_model_checker_improved['PRSCS_UPPER_BOUND'] != 0.0981446]
 
-
-metrics_df = pd.DataFrame(columns=new_columns)
-metrics_df["PRSCS_INIT"]       = df_model_checker_to_improve[["PRSCS_LOWER_BOUND", "PRSCS_UPPER_BOUND"]].mean(axis=1)
+metrics_df                     = pd.DataFrame(columns=new_columns)
 metrics_df["PRSCS_IMPROV"]     = df_model_checker_improved[["PRSCS_LOWER_BOUND", "PRSCS_UPPER_BOUND"]].mean(axis=1)
 metrics_df["SCS"]              = df_generated["SCS"]
-metrics_df["FTG_HUM_1_INIT"]   = df_model_checker_to_improve["FTG_HUM_1"]
 metrics_df["FTG_HUM_1_IMPROV"] = ftg_hum_1_improv
 metrics_df["FTG"]              = df_generated["FTG"]
+
+tolerance = 0.2
+
+# Calculate the range within the tolerance
+lower_bound = metrics_df["PRSCS_IMPROV"] - metrics_df["PRSCS_IMPROV"] * tolerance
+upper_bound = metrics_df["PRSCS_IMPROV"] + metrics_df["PRSCS_IMPROV"] * tolerance
+
+# Count occurrences where column1 is within the tolerance range of column2
+count_within_tolerance = ((metrics_df["SCS"] >= lower_bound) & (metrics_df["SCS"] <= upper_bound)).sum()
+
 
 # df_migliorate = pd.DataFrame(columns=columns)
 # df_peggiorate = pd.DataFrame(columns=columns)
@@ -46,5 +54,24 @@ plt.title('Comparison of Objective Functions Values')
 plt.ylabel('Objective Functions Values')
 plt.xlabel('Method of prediction of a specific Objective Function')
 plt.xticks([1, 2, 3, 4], ['SCS - MC', 'SCS - NSGAII', 'FTG - MC', 'FTG - NSGAII'])
-plt.savefig('results_validation/plots_and_tables/comparison_model_checker_improved.png')
+plt.savefig('results_validation/plots_and_tables/comparison_model_checker_improved_dropna.png')
 plt.close()
+
+import seaborn as sns
+
+# Specify the columns you want to plot
+columns_to_plot = ["PRSCS_IMPROV", "SCS", "FTG_HUM_1_IMPROV", "FTG"]
+
+# Melt the DataFrame
+melted_df = pd.melt(metrics_df[columns_to_plot], var_name='Objective Function', value_name='Values')
+
+# Create a violin plot for all columns
+plt.figure(figsize=(10, 6))  # Adjust size as needed
+sns.violinplot(x='Objective Function', y='Values', data=melted_df)
+plt.title('Comparison of Objective Functions Values')
+plt.ylabel('Objective Functions Values')
+plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+plt.tight_layout()
+plt.savefig('results_validation/plots_and_tables/comparison_model_checker_improved_violin_dropna.png')
+plt.show()
+
