@@ -1,0 +1,61 @@
+Options for the verification:
+  Generating no trace
+  Search order is breadth first
+  Using conservative space optimisation
+  Seed is 1715140142
+  State space representation uses minimal constraint systems
+[2K
+Verifying formula 1 at ./resources/gen_models/ease_exp/DPa_92.q:1
+ -- Throughput: 6142 states/sec, Load: 389 runs[K -- Throughput: 6100 states/sec, Load: 389 runs[K -- Throughput: 6146 states/sec, Load: 389 runs[K -- Throughput: 6156 states/sec, Load: 389 runs[K -- Throughput: 6057 states/sec, Load: 388 runs[K -- Throughput: 5968 states/sec, Load: 388 runs[K -- Throughput: 6161 states/sec, Load: 388 runs[K -- Throughput: 6121 states/sec, Load: 388 runs[K -- Throughput: 6185 states/sec, Load: 387 runs[K -- Throughput: 6158 states/sec, Load: 387 runs[K -- Throughput: 6088 states/sec, Load: 387 runs[K -- Throughput: 6187 states/sec, Load: 387 runs[K -- Throughput: 6131 states/sec, Load: 386 runs[K -- Throughput: 6111 states/sec, Load: 386 runs[K -- Throughput: 6089 states/sec, Load: 386 runs[K -- Throughput: 6047 states/sec, Load: 386 runs[K -- Throughput: 6179 states/sec, Load: 385 runs[K -- Throughput: 6172 states/sec, Load: 385 runs[K -- Throughput: 6179 states/sec, Load: 385 runs[K -- Throughput: 6162 states/sec, Load: 385 runs[K -- Throughput: 6057 states/sec, Load: 384 runs[K -- Throughput: 6092 states/sec, Load: 384 runs[K -- Throughput: 6122 states/sec, Load: 384 runs[K -- Throughput: 6141 states/sec, Load: 384 runs[K -- Throughput: 6115 states/sec, Load: 384 runs[K -- Throughput: 6037 states/sec, Load: 383 runs[K -- Throughput: 6122 states/sec, Load: 383 runs[K -- Throughput: 6125 states/sec, Load: 383 runs[K -- Throughput: 6181 states/sec, Load: 383 runs[K -- Throughput: 6148 states/sec, Load: 382 runs[K -- Throughput: 6138 states/sec, Load: 382 runs[K -- Throughput: 6122 states/sec, Load: 382 runs[K -- Throughput: 6123 states/sec, Load: 382 runs[K -- Throughput: 6114 states/sec, Load: 381 runs[K -- Throughput: 6071 states/sec, Load: 381 runs[K -- Throughput: 6114 states/sec, Load: 381 runs[K -- Throughput: 6087 states/sec, Load: 381 runs[K -- Throughput: 6162 states/sec, Load: 380 runs[K -- Throughput: 6149 states/sec, Load: 380 runs[K -- Throughput: 6146 states/sec, Load: 380 runs[K -- Throughput: 6184 states/sec, Load: 380 runs[K -- Throughput: 6071 states/sec, Load: 380 runs[K -- Throughput: 6138 states/sec, Load: 379 runs[K -- Throughput: 6119 states/sec, Load: 379 runs[K -- Throughput: 6131 states/sec, Load: 379 runs[K -- Throughput: 6166 states/sec, Load: 379 runs[K -- Throughput: 6035 states/sec, Load: 378 runs[K -- Throughput: 6143 states/sec, Load: 378 runs[K -- Throughput: 6203 states/sec, Load: 378 runs[K -- Throughput: 6162 states/sec, Load: 378 runs[K -- Throughput: 6178 states/sec, Load: 377 runs[K -- Throughput: 5978 states/sec, Load: 377 runs[K -- Throughput: 6120 states/sec, Load: 377 runs[K -- Throughput: 6189 states/sec, Load: 377 runs[K -- Throughput: 6130 states/sec, Load: 376 runs[K -- Throughput: 6156 states/sec, Load: 376 runs[K -- Throughput: 6096 states/sec, Load: 376 runs[K -- Throughput: 6092 states/sec, Load: 376 runs[K -- Throughput: 6100 states/sec, Load: 376 runs[K -- Throughput: 6176 states/sec, Load: 375 runs[K -- Throughput: 6171 states/sec, Load: 375 runs[K -- Throughput: 6086 states/sec, Load: 375 runs[K -- Throughput: 6140 states/sec, Load: 375 runs[K -- Throughput: 6128 states/sec, Load: 374 runs[K -- Throughput: 6107 states/sec, Load: 374 runs[K -- Throughput: 6113 states/sec, Load: 374 runs[K -- Throughput: 6028 states/sec, Load: 374 runs[K -- Throughput: 6152 states/sec, Load: 373 runs[K -- Throughput: 6128 states/sec, Load: 373 runs[K -- Throughput: 6150 states/sec, Load: 373 runs[K -- Throughput: 6201 states/sec, Load: 373 runs[K -- Throughput: 6116 states/sec, Load: 372 runs[K -- Throughput: 6068 states/sec, Load: 372 runs[K -- Throughput: 6063 states/sec, Load: 372 runs[K -- Throughput: 6169 states/sec, Load: 372 runs[K -- Throughput: 6142 states/sec, Load: 372 runs[K -- Throughput: 6130 states/sec, Load: 371 runs[K -- Throughput: 6075 states/sec, Load: 371 runs[K -- Throughput: 6209 states/sec, Load: 371 runs[K -- Throughput: 6160 states/sec, Load: 371 runs[K -- Throughput: 6152 states/sec, Load: 370 runs[K -- Throughput: 6097 states/sec, Load: 370 runs[K -- Throughput: 6004 states/sec, Load: 370 runs[K -- Throughput: 6119 states/sec, Load: 370 runs[K -- Throughput: 6130 states/sec, Load: 369 runs[K -- Throughput: 6141 states/sec, Load: 369 runs[K -- Throughput: 6144 states/sec, Load: 369 runs[K -- Throughput: 6058 states/sec, Load: 369 runs[K -- Throughput: 6167 states/sec, Load: 369 runs[K -- Throughput: 6159 states/sec, Load: 368 runs[K -- Throughput: 6169 states/sec, Load: 368 runs[K -- Throughput: 6219 states/sec, Load: 368 runs[K -- Throughput: 6065 states/sec, Load: 368 runs[K -- Throughput: 6133 states/sec, Load: 367 runs[K -- Throughput: 6098 states/sec, Load: 367 runs[K -- Throughput: 6138 states/sec, Load: 367 runs[K -- Throughput: 6193 states/sec, Load: 367 runs[K -- Throughput: 6034 states/sec, Load: 366 runs[K -- Throughput: 6162 states/sec, Load: 366 runs[K -- Throughput: 6140 states/sec, Load: 366 runs[K -- Throughput: 6171 states/sec, Load: 366 runs[K -- Throughput: 6173 states/sec, Load: 365 runs[K -- Throughput: 6015 states/sec, Load: 365 runs[K -- Throughput: 6112 states/sec, Load: 365 runs[K -- Throughput: 6158 states/sec, Load: 365 runs[K -- Throughput: 6152 states/sec, Load: 364 runs[K -- Throughput: 6149 states/sec, Load: 364 runs[K -- Throughput: 6009 states/sec, Load: 364 runs[K -- Throughput: 6178 states/sec, Load: 364 runs[K -- Throughput: 6153 states/sec, Load: 363 runs[K -- Throughput: 6147 states/sec, Load: 363 runs[K -- Throughput: 6150 states/sec, Load: 363 runs[K -- Throughput: 6050 states/sec, Load: 363 runs[K -- Throughput: 6057 states/sec, Load: 363 runs[K -- Throughput: 6135 states/sec, Load: 362 runs[K -- Throughput: 6139 states/sec, Load: 362 runs[K -- Throughput: 6190 states/sec, Load: 362 runs[K -- Throughput: 6085 states/sec, Load: 362 runs[K -- Throughput: 6062 states/sec, Load: 361 runs[K -- Throughput: 6121 states/sec, Load: 361 runs[K -- Throughput: 6160 states/sec, Load: 361 runs[K -- Throughput: 6164 states/sec, Load: 361 runs[K[2K -- Formula is satisfied.
+(29 runs) Pr(<> ...) in [0.901855,1]
+with confidence 0.95.
+Values in [199.025,225.416] mean=214.443 steps=0.26391: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 0 0 0 0 0 0 0 2 0 2 0 1 0 0 1 0 0 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 2 1 0 0 0 0 0 2 2 0 0 0 0 0 1 1 0 1 0 0 0 0 0 0 0 1 0 0 1 0 0 1 1 0 0 0 0 1
+ -- States explored : 748387 states
+ -- CPU user time used : 122300 ms
+ -- Virtual memory used : 129828 KiB
+ -- Resident memory used : 81088 KiB
+[2K
+Verifying formula 2 at ./resources/gen_models/ease_exp/DPa_92.q:2
+ -- Throughput: 1 states/sec[K -- Throughput: 6044 states/sec[K -- Throughput: 6123 states/sec[K -- Throughput: 6156 states/sec[K -- Throughput: 6162 states/sec[K -- Throughput: 6182 states/sec[K -- Throughput: 6048 states/sec[K -- Throughput: 6147 states/sec[K -- Throughput: 6128 states/sec[K -- Throughput: 6152 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.240428
+Values in [0.240428,0.240428] mean=0.240428 steps=2.22045e-16: 2
+ -- States explored : 59777 states
+ -- CPU user time used : 9920 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81520 KiB
+[2K
+Verifying formula 3 at ./resources/gen_models/ease_exp/DPa_92.q:3
+ -- Throughput: 1 states/sec[K -- Throughput: 5988 states/sec[K -- Throughput: 6066 states/sec[K -- Throughput: 6135 states/sec[K -- Throughput: 6166 states/sec[K -- Throughput: 6186 states/sec[K -- Throughput: 6020 states/sec[K -- Throughput: 6139 states/sec[K -- Throughput: 6150 states/sec[K -- Throughput: 6193 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.0462094
+Values in [0.0433006,0.0491182] mean=0.0462094 steps=5.81754e-05: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+ -- States explored : 60120 states
+ -- CPU user time used : 9960 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81520 KiB
+[2K
+Verifying formula 4 at ./resources/gen_models/ease_exp/DPa_92.q:4
+ -- Throughput: 1 states/sec[K -- Throughput: 5983 states/sec[K -- Throughput: 6092 states/sec[K -- Throughput: 6162 states/sec[K -- Throughput: 6175 states/sec[K -- Throughput: 6184 states/sec[K -- Throughput: 6005 states/sec[K -- Throughput: 6132 states/sec[K -- Throughput: 6144 states/sec[K -- Throughput: 6176 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.0858903
+Values in [0.0628684,0.108912] mean=0.0858903 steps=0.000460438: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+ -- States explored : 59762 states
+ -- CPU user time used : 9910 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81308 KiB
+[2K
+Verifying formula 5 at ./resources/gen_models/ease_exp/DPa_92.q:5
+ -- Throughput: 1 states/sec[K -- Throughput: 5987 states/sec[K -- Throughput: 6092 states/sec[K -- Throughput: 6155 states/sec[K -- Throughput: 6183 states/sec[K -- Throughput: 6143 states/sec[K -- Throughput: 6102 states/sec[K -- Throughput: 6085 states/sec[K -- Throughput: 6150 states/sec[K -- Throughput: 6186 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.322509
+Values in [0.318932,0.326086] mean=0.322509 steps=7.15455e-05: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+ -- States explored : 59846 states
+ -- CPU user time used : 9910 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81308 KiB
+[2K
+Verifying formula 6 at ./resources/gen_models/ease_exp/DPa_92.q:6
+ -- Throughput: 1 states/sec[K -- Throughput: 5970 states/sec[K -- Throughput: 6093 states/sec[K -- Throughput: 6159 states/sec[K -- Throughput: 6167 states/sec[K -- Throughput: 6163 states/sec[K -- Throughput: 6117 states/sec[K -- Throughput: 6044 states/sec[K -- Throughput: 6140 states/sec[K -- Throughput: 6186 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.360149
+Values in [0.359163,0.361135] mean=0.360149 steps=1.97178e-05: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+ -- States explored : 59733 states
+ -- CPU user time used : 9920 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81308 KiB

@@ -1,0 +1,60 @@
+Options for the verification:
+  Generating no trace
+  Search order is breadth first
+  Using conservative space optimisation
+  Seed is 1715102864
+  State space representation uses minimal constraint systems
+[2K
+Verifying formula 1 at ./resources/gen_models/ease_exp/DPa_39.q:1
+ -- Throughput: 6285 states/sec, Load: 389 runs[K -- Throughput: 6191 states/sec, Load: 388 runs[K -- Throughput: 6245 states/sec, Load: 388 runs[K -- Throughput: 6141 states/sec, Load: 387 runs[K -- Throughput: 6163 states/sec, Load: 387 runs[K -- Throughput: 6265 states/sec, Load: 386 runs[K -- Throughput: 6211 states/sec, Load: 386 runs[K -- Throughput: 6261 states/sec, Load: 385 runs[K -- Throughput: 6293 states/sec, Load: 385 runs[K -- Throughput: 6145 states/sec, Load: 384 runs[K -- Throughput: 6201 states/sec, Load: 384 runs[K -- Throughput: 6199 states/sec, Load: 383 runs[K -- Throughput: 6232 states/sec, Load: 383 runs[K -- Throughput: 6203 states/sec, Load: 382 runs[K -- Throughput: 6126 states/sec, Load: 381 runs[K -- Throughput: 6188 states/sec, Load: 381 runs[K -- Throughput: 6166 states/sec, Load: 380 runs[K -- Throughput: 6241 states/sec, Load: 380 runs[K -- Throughput: 6254 states/sec, Load: 379 runs[K -- Throughput: 6115 states/sec, Load: 379 runs[K -- Throughput: 6180 states/sec, Load: 378 runs[K -- Throughput: 6150 states/sec, Load: 378 runs[K -- Throughput: 6230 states/sec, Load: 377 runs[K -- Throughput: 6229 states/sec, Load: 377 runs[K -- Throughput: 6118 states/sec, Load: 376 runs[K -- Throughput: 6240 states/sec, Load: 376 runs[K -- Throughput: 6229 states/sec, Load: 375 runs[K -- Throughput: 6236 states/sec, Load: 375 runs[K -- Throughput: 6215 states/sec, Load: 374 runs[K -- Throughput: 6079 states/sec, Load: 373 runs[K -- Throughput: 6192 states/sec, Load: 373 runs[K -- Throughput: 6140 states/sec, Load: 372 runs[K -- Throughput: 6216 states/sec, Load: 372 runs[K -- Throughput: 6253 states/sec, Load: 371 runs[K -- Throughput: 6141 states/sec, Load: 371 runs[K -- Throughput: 6229 states/sec, Load: 370 runs[K -- Throughput: 6197 states/sec, Load: 370 runs[K -- Throughput: 6193 states/sec, Load: 369 runs[K -- Throughput: 6154 states/sec, Load: 369 runs[K -- Throughput: 6160 states/sec, Load: 368 runs[K -- Throughput: 6195 states/sec, Load: 368 runs[K -- Throughput: 6190 states/sec, Load: 367 runs[K -- Throughput: 6223 states/sec, Load: 367 runs[K -- Throughput: 6253 states/sec, Load: 366 runs[K -- Throughput: 6237 states/sec, Load: 366 runs[K -- Throughput: 6153 states/sec, Load: 365 runs[K -- Throughput: 6233 states/sec, Load: 364 runs[K -- Throughput: 6230 states/sec, Load: 364 runs[K -- Throughput: 6246 states/sec, Load: 363 runs[K -- Throughput: 6195 states/sec, Load: 363 runs[K -- Throughput: 6166 states/sec, Load: 362 runs[K -- Throughput: 6142 states/sec, Load: 362 runs[K -- Throughput: 6208 states/sec, Load: 361 runs[K -- Throughput: 6255 states/sec, Load: 361 runs[K[2K -- Formula is satisfied.
+(29 runs) Pr(<> ...) in [0,0.0981446]
+with confidence 0.95.
+ -- States explored : 337672 states
+ -- CPU user time used : 54600 ms
+ -- Virtual memory used : 129828 KiB
+ -- Resident memory used : 81144 KiB
+[2K
+Verifying formula 2 at ./resources/gen_models/ease_exp/DPa_39.q:2
+ -- Throughput: 3 states/sec[K -- Throughput: 6054 states/sec[K -- Throughput: 6289 states/sec[K -- Throughput: 6198 states/sec[K -- Throughput: 6247 states/sec[K -- Throughput: 6260 states/sec[K -- Throughput: 6053 states/sec[K -- Throughput: 6212 states/sec[K -- Throughput: 6194 states/sec[K -- Throughput: 6205 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0
+Values in [0,0] mean=0 steps=2.22045e-16: 2
+ -- States explored : 58040 states
+ -- CPU user time used : 9510 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81480 KiB
+[2K
+Verifying formula 3 at ./resources/gen_models/ease_exp/DPa_39.q:3
+ -- Throughput: 3 states/sec[K -- Throughput: 6132 states/sec[K -- Throughput: 6117 states/sec[K -- Throughput: 6175 states/sec[K -- Throughput: 6203 states/sec[K -- Throughput: 6216 states/sec[K -- Throughput: 6238 states/sec[K -- Throughput: 6120 states/sec[K -- Throughput: 6194 states/sec[K -- Throughput: 6184 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.0240907
+Values in [0.0162211,0.0319603] mean=0.0240907 steps=0.000157393: 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+ -- States explored : 57905 states
+ -- CPU user time used : 9500 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81480 KiB
+[2K
+Verifying formula 4 at ./resources/gen_models/ease_exp/DPa_39.q:4
+ -- Throughput: 2 states/sec[K -- Throughput: 6135 states/sec[K -- Throughput: 6129 states/sec[K -- Throughput: 6232 states/sec[K -- Throughput: 6268 states/sec[K -- Throughput: 6243 states/sec[K -- Throughput: 6224 states/sec[K -- Throughput: 6121 states/sec[K -- Throughput: 6169 states/sec[K -- Throughput: 6203 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0
+Values in [0,0] mean=0 steps=2.22045e-16: 2
+ -- States explored : 57976 states
+ -- CPU user time used : 9500 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81268 KiB
+[2K
+Verifying formula 5 at ./resources/gen_models/ease_exp/DPa_39.q:5
+ -- Throughput: 2 states/sec[K -- Throughput: 6248 states/sec[K -- Throughput: 6219 states/sec[K -- Throughput: 6113 states/sec[K -- Throughput: 6193 states/sec[K -- Throughput: 6222 states/sec[K -- Throughput: 6183 states/sec[K -- Throughput: 6200 states/sec[K -- Throughput: 6031 states/sec[K -- Throughput: 6206 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0
+Values in [0,0] mean=0 steps=2.22045e-16: 2
+ -- States explored : 58427 states
+ -- CPU user time used : 9610 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81268 KiB
+[2K
+Verifying formula 6 at ./resources/gen_models/ease_exp/DPa_39.q:6
+ -- Throughput: 2 states/sec[K -- Throughput: 6218 states/sec[K -- Throughput: 6221 states/sec[K -- Throughput: 6120 states/sec[K -- Throughput: 6191 states/sec[K -- Throughput: 6238 states/sec[K -- Throughput: 6241 states/sec[K -- Throughput: 6226 states/sec[K -- Throughput: 6137 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0
+Values in [0,0] mean=0 steps=2.22045e-16: 2
+ -- States explored : 57480 states
+ -- CPU user time used : 9430 ms
+ -- Virtual memory used : 129948 KiB
+ -- Resident memory used : 81268 KiB

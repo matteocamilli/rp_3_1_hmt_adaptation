@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+from sklearn.metrics import precision_recall_fscore_support
 
 new_columns = ["PRSCS_IMPROV", "SCS", "FTG_HUM_1_IMPROV", "FTG"]
 columns = ["PRSCS", "SCS", "FTG_HUM_1", "FTG"]
@@ -11,13 +13,35 @@ df_model_checker_improved = pd.read_csv("additional_datasets/DPa 3.csv")
 ftg_hum_1_improv = df_model_checker_improved["FTG_HUM_1"].str.split(r'\+-', expand=True)[0].astype(float)
 
 df_model_checker_improved = df_model_checker_improved.fillna({'FTG_HUM_1' : 0, "PRSCS_LOWER_BOUND" : 0.9, "PRSCS_UPPER_BOUND": 1})
-df_model_checker_improved = df_model_checker_improved[df_model_checker_improved['PRSCS_UPPER_BOUND'] != 0.0981446]
+#df_model_checker_improved = df_model_checker_improved[df_model_checker_improved['PRSCS_UPPER_BOUND'] != 0.0981446]
 
 metrics_df                     = pd.DataFrame(columns=new_columns)
 metrics_df["PRSCS_IMPROV"]     = df_model_checker_improved[["PRSCS_LOWER_BOUND", "PRSCS_UPPER_BOUND"]].mean(axis=1)
 metrics_df["SCS"]              = df_generated["SCS"]
 metrics_df["FTG_HUM_1_IMPROV"] = ftg_hum_1_improv
 metrics_df["FTG"]              = df_generated["FTG"]
+
+# Set your threshold value
+threshold = 0.9
+
+# Define a function to check if a value is above the threshold and return 1 or 0 accordingly
+def check_threshold(value):
+    if value > threshold:
+        return 1
+    else:
+        return 0
+
+# Apply the function to each value in 'col1' and 'col2' and create new columns with the results
+metrics_df['MC_above_threshold'] = metrics_df['PRSCS_IMPROV'].apply(lambda x: check_threshold(x))
+metrics_df['NSGAII_above_threshold'] = metrics_df['SCS'].apply(lambda x: check_threshold(x))
+
+metrics_df.to_csv(f"results_validation/validation_table_{threshold}.csv", index=False)
+
+y_true = np.array(metrics_df["MC_above_threshold"])
+y_pred = np.array(metrics_df["NSGAII_above_threshold"])
+print(precision_recall_fscore_support(y_true, y_pred, average='macro'))
+
+exit()
 
 tolerance = 0.2
 

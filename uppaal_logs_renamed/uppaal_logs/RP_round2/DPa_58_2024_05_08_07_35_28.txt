@@ -1,0 +1,43 @@
+Options for the verification:
+  Generating no trace
+  Search order is breadth first
+  Using conservative space optimisation
+  Seed is 1715153728
+  State space representation uses minimal constraint systems
+[2K
+Verifying formula 1 at ./resources/gen_models/ease_exp/DPa_58.q:1
+ -- Throughput: 6038 states/sec[K -- Throughput: 5959 states/sec[K -- Throughput: 6081 states/sec[K -- Throughput: 5982 states/sec[K -- Throughput: 6093 states/sec[K -- Throughput: 5989 states/sec[K -- Throughput: 6057 states/sec[K -- Throughput: 6046 states/sec[K -- Throughput: 5973 states/sec[K[2K -- Formula is satisfied.
+(2 runs) E(max) = 0.213372
+Values in [0.213372,0.213372] mean=0.213372 steps=2.22045e-16: 2
+ -- States explored : 55945 states
+ -- CPU user time used : 9380 ms
+ -- Virtual memory used : 125196 KiB
+ -- Resident memory used : 76580 KiB
+[2K
+Verifying formula 2 at ./resources/gen_models/ease_exp/DPa_58.q:2
+[2K -- Aborted.
+ -- States explored : 0 states
+ -- CPU user time used : 100 ms
+ -- Virtual memory used : 119048 KiB
+ -- Resident memory used : 73700 KiB
+[2K
+Verifying formula 3 at ./resources/gen_models/ease_exp/DPa_58.q:3
+[2K -- Aborted.
+ -- States explored : 0 states
+ -- CPU user time used : 100 ms
+ -- Virtual memory used : 117000 KiB
+ -- Resident memory used : 70068 KiB
+[2K
+Verifying formula 4 at ./resources/gen_models/ease_exp/DPa_58.q:4
+[2K -- Aborted.
+ -- States explored : 0 states
+ -- CPU user time used : 90 ms
+ -- Virtual memory used : 117000 KiB
+ -- Resident memory used : 70068 KiB
+[2K
+Verifying formula 5 at ./resources/gen_models/ease_exp/DPa_58.q:5
+[2K -- Aborted.
+ -- States explored : 0 states
+ -- CPU user time used : 100 ms
+ -- Virtual memory used : 125320 KiB
+ -- Resident memory used : 77268 KiB
