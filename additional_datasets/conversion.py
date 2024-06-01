@@ -26,7 +26,7 @@ def reverseProcessDataframe(df):
     X_reversed = reverse_clean(df)
     return X_reversed
 
-df = pd.read_csv("additional_datasets/initial_configuration_to_improve_random.csv")
+df = pd.read_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv")
 
 column_mapping = {
     "PRGS" : "PROGRESS",
@@ -55,10 +55,19 @@ def join_columns(row):
     joined_column_4 = '/'.join([value7, value8])
     return joined_column_1, joined_column_2, joined_column_3, joined_column_4
 
+def split_columns(df):
+    df[['HUM_1_POS_X', 'HUM_1_POS_Y']] = df['HUM_1_POS'].str.split(', ', expand=True)
+    df[['HUM_2_POS_X', 'HUM_2_POS_Y']] = df['HUM_2_POS'].str.split(', ', expand=True)
+    df[['HUM_1_AGE', 'HUM_1_STA']] = df['HUM_1_FTG'].str.split('/', expand=True)
+    df[['HUM_2_AGE', 'HUM_2_STA']] = df['HUM_2_FTG'].str.split('/', expand=True)
+    return df
+
+df = split_columns(df)
+
 df = reverseProcessDataframe(df)
 
-# Apply the function to create new columns
-df["HUM_1_POS"], df["HUM_2_POS"], df["HUM_1_FTG"], df["HUM_2_FTG"] = zip(*df.apply(join_columns, axis=1))
+# Apply the function to join columns
+#df["HUM_1_POS"], df["HUM_2_POS"], df["HUM_1_FTG"], df["HUM_2_FTG"] = zip(*df.apply(join_columns, axis=1))
 
 new_columns_order = [
     "PROGRESS", 
@@ -81,12 +90,12 @@ new_columns_order = [
     "PRSCS_UPPER_BOUND", 
     "FTG_HUM_1", 
     "FTG_HUM_2"
-    ]
+]
 
-columns_to_add = ['PRSCS_LOWER_BOUND', 'PRSCS_UPPER_BOUND', 'FTG_HUM_1', 'FTG_HUM_2']
-for column in columns_to_add:
-    df[column] = '' 
+# columns_to_add = ['PRSCS_LOWER_BOUND', 'PRSCS_UPPER_BOUND', 'FTG_HUM_1', 'FTG_HUM_2']
+# for column in columns_to_add:
+#     df[column] = '' 
 
-df = df[new_columns_order]
+# df = df[new_columns_order]
 
-df.to_csv("additional_datasets/initial_configuration_to_improve_random.csv", index=False)
+df.to_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv", index=False)

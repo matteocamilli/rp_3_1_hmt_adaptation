@@ -94,6 +94,7 @@ def processDataframe(df):
     X = clean(df)
     return X
 
+
 for idx, (_, row) in enumerate(df.iterrows()):
     random_generated_variables = []
     for start, end in variables_domain:
@@ -106,7 +107,7 @@ for idx, (_, row) in enumerate(df.iterrows()):
     result_df = pd.concat([result_df, result_local], ignore_index=True)
 
 result_df = processDataframe(result_df)
-result_df.to_csv("additional_datasets/randomly_generated_configuration.csv", index=False)
-df_sampled.to_csv("additional_datasets/initial_configuration_to_improve_random.csv", index=False)
+result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configuration.csv", index=False)
+df_sampled.to_csv("additional_datasets/configurations_to_improve/initial_configuration_to_improve.csv", index=False)
 
 

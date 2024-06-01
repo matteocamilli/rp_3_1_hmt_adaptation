@@ -1,0 +1,9 @@
+Metric,Configurations,p-value,Effect_size
+SCS,20-20/random,1.6073964990473794e-11,large
+SCS,20-40/random,2.2616962016288055e-11,medium
+SCS,40-20/random,8.05992236170207e-12,medium
+SCS,40-40/random,4.890739912139965e-13,large
+FTG,20-20/random,1.1127180638567001e-13,small
+FTG,20-40/random,2.323425662107666e-11,small
+FTG,40-20/random,5.050979449360805e-13,small
+FTG,40-40/random,4.564456497586088e-13,small

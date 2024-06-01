@@ -14,7 +14,6 @@ from pymoo.core.callback import Callback
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
 
-DIR = "data/ecsa2023ext/"
 SUBSET = 1000
 POINTS = 1000
 
@@ -177,7 +176,7 @@ def createTimeDataframe(start, end):
     return time_df
 
 if __name__ == "__main__":
-    df = pd.read_csv("additional_datasets/initial_configuration_to_improve_random.csv")
+    df = pd.read_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv")
     df = processDataframe(df)
     #time_df = pd.DataFrame(columns=["Iteration_duration", "PSCS__TAU"])
 
@@ -198,7 +197,7 @@ if __name__ == "__main__":
             "./regressors/regressor_FTG.joblib", 
             #elementwise_runner=runner,
         )
-        pop_size =20
+        pop_size =40
         algorithm = NSGA2(pop_size=pop_size)
 
         # Define the termination criteria
@@ -237,5 +236,5 @@ if __name__ == "__main__":
     plt.ylabel('Objectives functions values')
     plt.title(f'Distributions of solution for n_gen={termination[1]}, pop_size={pop_size}') 
     plt.legend()
-    plt.savefig(f'results_validation/plots_and_tables/distributions_{termination[1]}_{pop_size}_averaged.png')
+    plt.savefig(f'results_validation/plots_and_tables_NSGAII/distributions_{termination[1]}_{pop_size}_averaged.png')
     plt.close()
