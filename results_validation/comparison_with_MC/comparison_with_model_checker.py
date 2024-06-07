@@ -48,7 +48,6 @@ tolerance = 0.2
 lower_bound = metrics_df["PRSCS_IMPROV"] - metrics_df["PRSCS_IMPROV"] * tolerance
 upper_bound = metrics_df["PRSCS_IMPROV"] + metrics_df["PRSCS_IMPROV"] * tolerance
 
-# Count occurrences where column1 is within the tolerance range of column2
 count_within_tolerance = ((metrics_df["SCS"] >= lower_bound) & (metrics_df["SCS"] <= upper_bound)).sum()
 
 metrics_df = metrics_df.fillna({'FTG_HUM_1_IMPROV' : 0, "PRSCS_IMPROV" : 0.9})
