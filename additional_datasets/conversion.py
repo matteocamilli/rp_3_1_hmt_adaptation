@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def reverseProcessDataframe(df):
     # Define reverse mappings for each categorical feature
     freewill_reverse_mapping = {0: "foc", 1: "distr", 2: "free"}
@@ -26,18 +27,20 @@ def reverseProcessDataframe(df):
     X_reversed = reverse_clean(df)
     return X_reversed
 
+
 df = pd.read_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv")
 
 column_mapping = {
-    "PRGS" : "PROGRESS",
-    "PRSCS_LB" : "PRSCS_LOWER_BOUND",
-    "PRSCS_UB" : "PRSCS_UPPER_BOUND"
+    "PRGS": "PROGRESS",
+    "PRSCS_LB": "PRSCS_LOWER_BOUND",
+    "PRSCS_UB": "PRSCS_UPPER_BOUND"
 }
 
 df.rename(columns=column_mapping, inplace=True)
 
-df["PROGRESS"]=df["PROGRESS"].astype(int)
-df["PSCS__TAU"]=df["PSCS__TAU"].astype(int)
+df["PROGRESS"] = df["PROGRESS"].astype(int)
+df["PSCS__TAU"] = df["PSCS__TAU"].astype(int)
+
 
 # Function to join four columns into two
 def join_columns(row):
@@ -55,6 +58,7 @@ def join_columns(row):
     joined_column_4 = '/'.join([value7, value8])
     return joined_column_1, joined_column_2, joined_column_3, joined_column_4
 
+
 def split_columns(df):
     df[['HUM_1_POS_X', 'HUM_1_POS_Y']] = df['HUM_1_POS'].str.split(', ', expand=True)
     df[['HUM_2_POS_X', 'HUM_2_POS_Y']] = df['HUM_2_POS'].str.split(', ', expand=True)
@@ -62,33 +66,34 @@ def split_columns(df):
     df[['HUM_2_AGE', 'HUM_2_STA']] = df['HUM_2_FTG'].str.split('/', expand=True)
     return df
 
+
 df = split_columns(df)
 
 df = reverseProcessDataframe(df)
 
 # Apply the function to join columns
-#df["HUM_1_POS"], df["HUM_2_POS"], df["HUM_1_FTG"], df["HUM_2_FTG"] = zip(*df.apply(join_columns, axis=1))
+# df["HUM_1_POS"], df["HUM_2_POS"], df["HUM_1_FTG"], df["HUM_2_FTG"] = zip(*df.apply(join_columns, axis=1))
 
 new_columns_order = [
-    "PROGRESS", 
-    "ORCH_1_Dstop", 
-    "ORCH_1_Drestart", 
-    "ORCH_1_Fstop", 
-    "ORCH_1_Frestart", 
-    "PSCS__TAU", 
-    "HUM_1_VEL", 
-    "HUM_2_VEL", 
-    "HUM_1_FW", 
-    "HUM_1_FTG", 
-    "HUM_2_FW", 
-    "HUM_2_FTG", 
-    "HUM_1_POS", 
-    "HUM_2_POS", 
-    "ROB_1_VEL", 
-    "ROB_1_CHG", 
-    "PRSCS_LOWER_BOUND", 
-    "PRSCS_UPPER_BOUND", 
-    "FTG_HUM_1", 
+    "PROGRESS",
+    "ORCH_1_Dstop",
+    "ORCH_1_Drestart",
+    "ORCH_1_Fstop",
+    "ORCH_1_Frestart",
+    "PSCS__TAU",
+    "HUM_1_VEL",
+    "HUM_2_VEL",
+    "HUM_1_FW",
+    "HUM_1_FTG",
+    "HUM_2_FW",
+    "HUM_2_FTG",
+    "HUM_1_POS",
+    "HUM_2_POS",
+    "ROB_1_VEL",
+    "ROB_1_CHG",
+    "PRSCS_LOWER_BOUND",
+    "PRSCS_UPPER_BOUND",
+    "FTG_HUM_1",
     "FTG_HUM_2"
 ]
 

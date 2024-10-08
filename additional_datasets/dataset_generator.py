@@ -1,19 +1,23 @@
-import pandas as pd
 import random
-import numpy as np
+import sys
 
-DIR = "data/ecsa2023ext/"
+import numpy as np
+import pandas as pd
+from joblib import load
+
+DIR = "additional_datasets/configurations_to_improve/"
 POINTS = 1000
-feature_names = [ 
+
+feature_names = [
     "ORCH_1_Dstop",
     "ORCH_1_Drestart",
     "ORCH_1_Fstop",
     "ORCH_1_Frestart",
-    "PSCS__TAU",
     "HUM_1_VEL",
     "HUM_2_VEL",
     "ROB_1_VEL"
 ]
+
 constant_parameters = [
     "PRGS",
     "HUM_1_FW",
@@ -27,7 +31,9 @@ constant_parameters = [
     "HUM_2_POS_X",
     "HUM_2_POS_Y",
     "ROB_1_CHG",
+    "PSCS__TAU"
 ]
+
 result_df_columns = [
     "PRGS",
     "ORCH_1_Dstop",
@@ -51,29 +57,30 @@ result_df_columns = [
     "ROB_1_CHG",
 ]
 
-df = pd.read_csv("{}dataset{}.csv".format(DIR, POINTS))
-#df = df.loc[(df['FTG_HUM_1'] >= 0.2) & (df['SCS'] < 1)]
-df_sampled = df.sample(n=100)
+df = pd.read_csv("data/ecsa2023ext/dataset1000.csv")
+# df = df.loc[(df['FTG_HUM_1'] >= 0.2) & (df['SCS'] < 1)]
+df_sampled = df.sample(n=int(sys.argv[1]))
 
-variables_domain = [(5.0, 7.5), (2.0, 4.5), (0.5, 0.8), (0.1, 0.4), (250.0, 700.0), (30.0, 100.0), (30.0, 100.0), (30.0, 100.0)]
+variables_domain = [(5.0, 7.5), (2.0, 4.5), (0.5, 0.8), (0.1, 0.4), (30.0, 100.0), (30.0, 100.0), (30.0, 100.0)]
 result_df = pd.DataFrame(columns=result_df_columns)
+
 
 def processDataframe(df):
     freewill_mapping = {
-    "foc" : 0,
-    "distr" : 1,
-    "free" : 2
+        "foc": 0,
+        "distr": 1,
+        "free": 2
     }
 
     age_mapping = {
-        "y" : 0,
-        "e" : 1
+        "y": 0,
+        "e": 1
     }
 
     health_mapping = {
-        "h" : 0,
-        "s" : 1,
-        "u" : 2
+        "h": 0,
+        "s": 1,
+        "u": 2
     }
 
     transformations = {
@@ -95,6 +102,18 @@ def processDataframe(df):
     return X
 
 
+regressor_SCS_path = "./regressors/regressor_SCS.joblib"
+regressor_FTG_path = "./regressors/regressor_FTG.joblib"
+
+
+def calculateRegression(df):
+    regressor_SCS = load(regressor_SCS_path)
+    regressor_FTG = load(regressor_FTG_path)
+    random_success_probability = regressor_SCS.predict(df)
+    random_muscle_fatigue = regressor_FTG.predict(df)
+    return random_success_probability.item(), random_muscle_fatigue.item()
+
+
 for idx, (_, row) in enumerate(df.iterrows()):
     random_generated_variables = []
     for start, end in variables_domain:
@@ -107,7 +126,24 @@ for idx, (_, row) in enumerate(df.iterrows()):
     result_df = pd.concat([result_df, result_local], ignore_index=True)
 
 result_df = processDataframe(result_df)
-result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configuration.csv", index=False)
-df_sampled.to_csv("additional_datasets/configurations_to_improve/initial_configuration_to_improve.csv", index=False)
+result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv", index=False)
+df = pd.read_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv")
+features = ["SCS", "FTG"]
+result_df = pd.DataFrame(columns=features)
 
+scs_column, ftg_column = [], []
 
+for idx, row in df.iterrows():
+    regressors_input = pd.DataFrame([row])
+    random_SCS, random_FTG = calculateRegression(regressors_input)
+    result_local = pd.DataFrame(columns=result_df.columns)
+    result_local["SCS"] = [random_SCS]
+    result_local["FTG"] = [random_FTG]
+    # result_df = pd.concat([result_df, result_local], ignore_index=True)
+    scs_column.append(random_SCS)
+    ftg_column.append(random_FTG)
+
+result_df = result_df.assign(SCS=scs_column, FTG=ftg_column)
+result_df = pd.concat([df, result_df], axis=1)
+result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv", index=False)
+df_sampled.to_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv", index=False)

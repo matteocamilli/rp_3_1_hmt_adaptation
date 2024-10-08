@@ -1,35 +1,23 @@
-import pandas as pd
-import numpy as np
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import os
-from joblib import dump, load
-from scipy.stats import wilcoxon
 import itertools as it
 from bisect import bisect_left
 from typing import List
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.stats as ss
+from joblib import load
 from pandas import Categorical
-import lime
-import lime.lime_tabular
-import sys
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-
+from scipy.stats import wilcoxon
 
 DIR = "additional_datasets/"
 POPSIZE = 20
 NGEN = 20
 
-
 regressor_SCS_path = "./regressors/regressor_SCS.joblib"
 regressor_FTG_path = "./regressors/regressor_FTG.joblib"
 
-combinations = ["20-20/random", "20-40/random", "40-20/random", "40-40/random",]
+combinations = ["20-20/random", "20-40/random", "40-20/random", "40-40/random", ]
 
 all_features = [
     "PRGS",
@@ -61,7 +49,7 @@ NSGA_datasets_paths = [
     "additional_datasets/improved_configurations/configurations_improved_40_40.csv"
 ]
 
-feature_names = [ 
+feature_names = [
     "ORCH_1_Dstop",
     "ORCH_1_Drestart",
     "ORCH_1_Fstop",
@@ -86,12 +74,14 @@ df2_path = "{}improved_configurations/configurations_improved_{}_{}.csv".format(
 features = ["SCS", "FTG"]
 metrics_dataset_columns = ["Metric", "Configurations", "p-value", "Effect_size"]
 
-def calculateRegression(df): 
+
+def calculateRegression(df):
     regressor_SCS = load(regressor_SCS_path)
     regressor_FTG = load(regressor_FTG_path)
     random_success_probability = regressor_SCS.predict(df)
-    random_muscle_fatigue      = regressor_FTG.predict(df)
+    random_muscle_fatigue = regressor_FTG.predict(df)
     return (random_success_probability.item(), random_muscle_fatigue.item())
+
 
 def VD_A(treatment: List[float], control: List[float]):
     """
@@ -131,6 +121,7 @@ def VD_A(treatment: List[float], control: List[float]):
     estimate = A
 
     return magnitude
+
 
 def VD_A_DF(data, val_col: str = None, group_col: str = None, sort=True):
     """
@@ -180,40 +171,41 @@ def VD_A_DF(data, val_col: str = None, group_col: str = None, sort=True):
         'magnitude': ef[:, 1]
     })
 
+
 if __name__ == "__main__":
     df = pd.read_csv(df_path)
-    result_df = pd.DataFrame(columns = features)
-    
-    for idx, row in df.iterrows(): 
-        regressors_input       = pd.DataFrame([row])
+    result_df = pd.DataFrame(columns=features)
+
+    for idx, row in df.iterrows():
+        regressors_input = pd.DataFrame([row])
         random_SCS, random_FTG = calculateRegression(regressors_input)
-        result_local           = pd.DataFrame(columns=result_df.columns)
-        result_local["SCS"]    = [random_SCS]
-        result_local["FTG"]    = [random_FTG]
-        result_df              = pd.concat([result_df, result_local], ignore_index=True)
+        result_local = pd.DataFrame(columns=result_df.columns)
+        result_local["SCS"] = [random_SCS]
+        result_local["FTG"] = [random_FTG]
+        result_df = pd.concat([result_df, result_local], ignore_index=True)
     random_SCS_FTG_values = result_df
-    
+
     NSGAII_values = []
     for file_name in NSGA_datasets_paths:
         df = pd.read_csv(file_name)
         NSGAII_values.append(df[features])
 
-    final_df = pd.DataFrame(columns = metrics_dataset_columns)
+    final_df = pd.DataFrame(columns=metrics_dataset_columns)
     for j in features:
         for i in range(4):
             df_local = pd.DataFrame(columns=final_df.columns)
             res = wilcoxon(NSGAII_values[i][j], random_SCS_FTG_values[j])
-            df_local.loc[0, "Metric"]  = j
+            df_local.loc[0, "Metric"] = j
             df_local["Configurations"] = combinations[i]
-            df_local["p-value"]        = res.pvalue
-            df_local["Effect_size"]    = VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j])
-            final_df                   = pd.concat([final_df, df_local], ignore_index=True)
-    final_df.to_csv("results_validation/plots_and_tables_NSGAII/metrics_table.csv", index=False)    
+            df_local["p-value"] = res.pvalue
+            df_local["Effect_size"] = VD_A(NSGAII_values[i][j], random_SCS_FTG_values[j])
+            final_df = pd.concat([final_df, df_local], ignore_index=True)
+    final_df.to_csv("results_validation/plots_and_tables_NSGAII/metrics_table.csv", index=False)
 
     for idx, i in enumerate(NSGAII_values):
-        plt.boxplot([i["SCS"]], positions=[idx+1], widths=0.6) 
+        plt.boxplot([i["SCS"]], positions=[idx + 1], widths=0.6)
     random_SCS_values = random_SCS_FTG_values["SCS"]
-    plt.boxplot([random_SCS_values], positions=[5], widths=0.6) 
+    plt.boxplot([random_SCS_values], positions=[5], widths=0.6)
     plt.title('Distributions of Pscs')
     plt.ylabel('Pscs')
     plt.xlabel('Types of configuration generation')
@@ -222,9 +214,9 @@ if __name__ == "__main__":
     plt.close()
 
     for idx, i in enumerate(NSGAII_values):
-        plt.boxplot([i["FTG"]], positions=[idx+1], widths=0.6) 
+        plt.boxplot([i["FTG"]], positions=[idx + 1], widths=0.6)
     random_FTG_values = random_SCS_FTG_values["FTG"]
-    plt.boxplot([random_FTG_values], positions=[5], widths=0.6) 
+    plt.boxplot([random_FTG_values], positions=[5], widths=0.6)
     plt.title('Distributions of FTG')
     plt.ylabel('FTG')
     plt.xlabel('Types of configuration generation')
