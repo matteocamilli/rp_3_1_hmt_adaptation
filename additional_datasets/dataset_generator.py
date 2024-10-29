@@ -1,5 +1,5 @@
-import random
 import sys
+import random
 
 import numpy as np
 import pandas as pd
@@ -115,19 +115,21 @@ def calculateRegression(df):
 
 
 for idx, (_, row) in enumerate(df.iterrows()):
-    random_generated_variables = []
-    for start, end in variables_domain:
-        random_generated_variables.append(random.uniform(start, end))
+    random_generated_variables = df[feature_names].to_numpy()[idx]
+    # Uncomment to randomly generate the value of mutable features
+    # for start, end in variables_domain:
+    #    random_generated_variables.append(random.uniform(start, end))
     random_generated_variables = np.array(random_generated_variables).reshape((1, len(feature_names)))
 
     result_local = pd.DataFrame(columns=result_df.columns)
     result_local[feature_names] = random_generated_variables
+    # result_local[feature_names] = df[feature_names].to_numpy()[idx]
     result_local[constant_parameters] = df[constant_parameters].to_numpy()[idx]
     result_df = pd.concat([result_df, result_local], ignore_index=True)
 
 result_df = processDataframe(result_df)
-result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv", index=False)
-df = pd.read_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv")
+result_df.to_csv("additional_datasets/configurations_to_improve/initial_with_regressor_estimations.csv", index=False)
+df = pd.read_csv("additional_datasets/configurations_to_improve/initial_with_regressor_estimations.csv")
 features = ["SCS", "FTG"]
 result_df = pd.DataFrame(columns=features)
 
@@ -145,5 +147,5 @@ for idx, row in df.iterrows():
 
 result_df = result_df.assign(SCS=scs_column, FTG=ftg_column)
 result_df = pd.concat([df, result_df], axis=1)
-result_df.to_csv("additional_datasets/configurations_to_improve/randomly_generated_configurations.csv", index=False)
-df_sampled.to_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv", index=False)
+result_df.to_csv("additional_datasets/configurations_to_improve/initial_with_regressor_estimations.csv", index=False)
+# df_sampled.to_csv("additional_datasets/configurations_to_improve/initial_configurations_to_improve.csv", index=False)
