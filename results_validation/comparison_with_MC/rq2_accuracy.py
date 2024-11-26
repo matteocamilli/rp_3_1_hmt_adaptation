@@ -1,6 +1,8 @@
+import csv
+
+from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-import csv
 
 thresholds = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
@@ -19,4 +21,5 @@ for threshold in thresholds:
 
     precision = precision_score(y_test, pred)
     recall = recall_score(y_test, pred)
-    print('Threshold {}: Precision: {}, Recall: {}'.format(threshold, precision, recall))
+    f1 = f1_score(y_test, pred)
+    print('Threshold {}: Precision: {}, Recall: {}, F1: {}'.format(threshold, precision, recall, f1))

@@ -1,7 +1,31 @@
+from bisect import bisect_left
+from typing import List
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy.stats as ss
+import statsmodels.stats.inter_rater as st
 from sklearn.metrics import precision_recall_fscore_support
+
+
+def VD_A(treatment: List[float], control: List[float]):
+    m = len(treatment)
+    n = len(control)
+    # if m != n:
+    #    raise ValueError("Data d and f must have the same length")
+    r = ss.rankdata(treatment + control)
+    r1 = sum(r[0:m])
+    # Compute the measure
+    # A = (r1/m - (m+1)/2)/n # formula (14) in Vargha and Delaney, 2000
+    A = (2 * r1 - m * (m + 1)) / (2 * n * m)  # equivalent formula to avoid accuracy errors
+    levels = [0.147, 0.33, 0.474]  # effect sizes from Hess and Kromrey, 2004
+    magnitude = ["negligible", "small", "medium", "large"]
+    scaled_A = (A - 0.5) * 2
+    magnitude = magnitude[bisect_left(levels, abs(scaled_A))]
+    estimate = A
+    return estimate, magnitude
+
 
 scs_columns = ["SCS_INITIAL", "SCS_NSGA_II_20_20", "SCS_NSGA_II_20_40", "SCS_NSGA_II_40_20", "SCS_NSGA_II_40_40",
                "SCS_RND"]
@@ -28,6 +52,27 @@ scs_metrics_df["SCS_NSGA_II_40_20"] = df_improved_40_20["SCS"].values
 scs_metrics_df["SCS_NSGA_II_40_40"] = df_improved_40_40["SCS"].values
 scs_metrics_df["SCS_RND"] = df_random["SCS"].values
 
+pairs = [(list(df_to_improve["SCS"].values), list(df_random["SCS"].values), 'initial vs. random'),
+         (list(df_to_improve["SCS"].values), list(df_improved_20_20["SCS"].values), 'initial vs. 20-20'),
+         (list(df_to_improve["SCS"].values), list(df_improved_20_40["SCS"].values), 'initial vs. 20-40'),
+         (list(df_to_improve["SCS"].values), list(df_improved_40_20["SCS"].values), 'initial vs. 40-20'),
+         (list(df_to_improve["SCS"].values), list(df_improved_40_40["SCS"].values), 'initial vs. 40-40'),
+         (list(df_random["SCS"].values), list(df_improved_20_20["SCS"].values), 'random vs. 20-20'),
+         (list(df_random["SCS"].values), list(df_improved_20_40["SCS"].values), 'random vs. 20-40'),
+         (list(df_random["SCS"].values), list(df_improved_40_20["SCS"].values), 'random vs. 40-20'),
+         (list(df_random["SCS"].values), list(df_improved_40_40["SCS"].values), 'random vs. 20-20'),
+         (list(df_improved_20_20["SCS"].values), list(df_improved_20_40["SCS"].values), '20-20 vs. 20-40'),
+         (list(df_improved_20_20["SCS"].values), list(df_improved_40_20["SCS"].values), '20-20 vs. 40-20'),
+         (list(df_improved_20_20["SCS"].values), list(df_improved_40_40["SCS"].values), '20-20 vs. 40-40'),
+         (list(df_improved_20_40["SCS"].values), list(df_improved_40_20["SCS"].values), '20-40 vs. 40-20'),
+         (list(df_improved_20_40["SCS"].values), list(df_improved_40_40["SCS"].values), '20-40 vs. 40-40'),
+         (list(df_improved_40_20["SCS"].values), list(df_improved_40_40["SCS"].values), '40-20 vs. 40-40')]
+
+for pair in pairs:
+    stat, pvalue = st.stats.mannwhitneyu(pair[0], pair[1])
+    est, mag = VD_A(pair[1], pair[0])
+    print('{}: {}, {}'.format(pair[2], pvalue, mag))
+
 ftg_metrics_df = pd.DataFrame(columns=ftg_columns)
 ftg_metrics_df["FTG_INITIAL"] = df_to_improve["FTG"]
 ftg_metrics_df["FTG_NSGA_II_20_20"] = df_improved_20_20["FTG"]
@@ -35,6 +80,27 @@ ftg_metrics_df["FTG_NSGA_II_20_40"] = df_improved_20_40["FTG"]
 ftg_metrics_df["FTG_NSGA_II_40_20"] = df_improved_40_20["FTG"]
 ftg_metrics_df["FTG_NSGA_II_40_40"] = df_improved_40_40["FTG"]
 ftg_metrics_df["FTG_RND"] = df_random["FTG"]
+
+pairs = [(list(df_to_improve["FTG"].values), list(df_random["FTG"].values), 'initial vs. random'),
+         (list(df_to_improve["FTG"].values), list(df_improved_20_20["FTG"].values), 'initial vs. 20-20'),
+         (list(df_to_improve["FTG"].values), list(df_improved_20_40["FTG"].values), 'initial vs. 20-40'),
+         (list(df_to_improve["FTG"].values), list(df_improved_40_20["FTG"].values), 'initial vs. 40-20'),
+         (list(df_to_improve["FTG"].values), list(df_improved_40_40["FTG"].values), 'initial vs. 40-40'),
+         (list(df_random["FTG"].values), list(df_improved_20_20["FTG"].values), 'random vs. 20-20'),
+         (list(df_random["FTG"].values), list(df_improved_20_40["FTG"].values), 'random vs. 20-40'),
+         (list(df_random["FTG"].values), list(df_improved_40_20["FTG"].values), 'random vs. 40-20'),
+         (list(df_random["FTG"].values), list(df_improved_40_40["FTG"].values), 'random vs. 20-20'),
+         (list(df_improved_20_20["FTG"].values), list(df_improved_20_40["FTG"].values), '20-20 vs. 20-40'),
+         (list(df_improved_20_20["FTG"].values), list(df_improved_40_20["FTG"].values), '20-20 vs. 40-20'),
+         (list(df_improved_20_20["FTG"].values), list(df_improved_40_40["FTG"].values), '20-20 vs. 40-40'),
+         (list(df_improved_20_40["FTG"].values), list(df_improved_40_20["FTG"].values), '20-40 vs. 40-20'),
+         (list(df_improved_20_40["FTG"].values), list(df_improved_40_40["FTG"].values), '20-40 vs. 40-40'),
+         (list(df_improved_40_20["FTG"].values), list(df_improved_40_40["FTG"].values), '40-20 vs. 40-40')]
+
+for pair in pairs:
+    stat, pvalue = st.stats.mannwhitneyu(pair[0], pair[1])
+    est, mag = VD_A(pair[1], pair[0])
+    print('{}: {}, {}'.format(pair[2], pvalue, mag))
 
 # Set your threshold value
 threshold = 0.9
@@ -70,30 +136,39 @@ count_within_tolerance = ((scs_metrics_df["SCS_NSGA_II_20_20"] >= lower_bound) &
 scs_metrics_df = scs_metrics_df.fillna({"SCS_INITIAL": 0.9})
 ftg_metrics_df = ftg_metrics_df.fillna({'FTG_INITIAL': 0})
 
-fig, ax = plt.subplots(ncols=2, figsize=(20, 6))
+fig, ax = plt.subplots(ncols=1, figsize=(10, 6))
 
-ax[0].boxplot([scs_metrics_df["SCS_INITIAL"]], positions=[1], widths=0.6)
-ax[0].boxplot([scs_metrics_df["SCS_RND"]], positions=[2], widths=0.6)
-ax[0].boxplot([scs_metrics_df["SCS_NSGA_II_20_20"]], positions=[3], widths=0.6)
-ax[0].boxplot([scs_metrics_df["SCS_NSGA_II_20_40"]], positions=[4], widths=0.6)
-ax[0].boxplot([scs_metrics_df["SCS_NSGA_II_40_20"]], positions=[5], widths=0.6)
-ax[0].boxplot([scs_metrics_df["SCS_NSGA_II_40_40"]], positions=[6], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_INITIAL"]], positions=[1], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_RND"]], positions=[2], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_NSGA_II_20_20"]], positions=[3], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_NSGA_II_20_40"]], positions=[4], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_NSGA_II_40_20"]], positions=[5], widths=0.6)
+ax.boxplot([scs_metrics_df["SCS_NSGA_II_40_40"]], positions=[6], widths=0.6)
 
-ax[1].boxplot([ftg_metrics_df["FTG_INITIAL"]], positions=[7], widths=0.6)
-ax[1].boxplot([ftg_metrics_df["FTG_RND"]], positions=[8], widths=0.6)
-ax[1].boxplot([ftg_metrics_df["FTG_NSGA_II_20_20"]], positions=[9], widths=0.6)
-ax[1].boxplot([ftg_metrics_df["FTG_NSGA_II_20_40"]], positions=[10], widths=0.6)
-ax[1].boxplot([ftg_metrics_df["FTG_NSGA_II_40_20"]], positions=[11], widths=0.6)
-ax[1].boxplot([ftg_metrics_df["FTG_NSGA_II_40_40"]], positions=[12], widths=0.6)
-
-ax[0].set_title('Success Probability')
-ax[0].set_xticks([1, 2, 3, 4, 5, 6], ['Initial', 'RAND', 'NSGA-II (20, 20)', 'NSGA-II (20, 40)',
+# ax.set_title('Success Probability')
+ax.set_xticks([1, 2, 3, 4, 5, 6], ['Initial', 'RAND', 'NSGA-II (20, 20)', 'NSGA-II (20, 40)',
                                       'NSGA-II (40, 20)', 'NSGA-II (40, 40)'])
-ax[1].set_title('Fatigue Level')
-ax[1].set_xticks([7, 8, 9, 10, 11, 12], ['Initial', 'RAND', 'NSGA-II (20, 20)', 'NSGA-II (20, 40)',
-                                         'NSGA-II (40, 20)', 'NSGA-II (40, 40)'])
+ax.set_ylim([-0.1, 1.1])
 
-plt.savefig('results_validation/comparison_with_MC/comparison_model_checker_improved_dropna.png', bbox_inches='tight')
+plt.savefig('results_validation/comparison_with_MC/comparison_model_checker_improved_dropna_1.png', bbox_inches='tight')
+plt.show()
+plt.close()
+
+fig, ax = plt.subplots(ncols=1, figsize=(10, 6))
+
+ax.boxplot([ftg_metrics_df["FTG_INITIAL"]], positions=[1], widths=0.6)
+ax.boxplot([ftg_metrics_df["FTG_RND"]], positions=[2], widths=0.6)
+ax.boxplot([ftg_metrics_df["FTG_NSGA_II_20_20"]], positions=[3], widths=0.6)
+ax.boxplot([ftg_metrics_df["FTG_NSGA_II_20_40"]], positions=[4], widths=0.6)
+ax.boxplot([ftg_metrics_df["FTG_NSGA_II_40_20"]], positions=[5], widths=0.6)
+ax.boxplot([ftg_metrics_df["FTG_NSGA_II_40_40"]], positions=[6], widths=0.6)
+
+# ax.set_title('Fatigue Level')
+ax.set_xticks([1, 2, 3, 4, 5, 6], ['Initial', 'RAND', 'NSGA-II (20, 20)', 'NSGA-II (20, 40)',
+                                         'NSGA-II (40, 20)', 'NSGA-II (40, 40)'])
+ax.set_ylim([-0.1, 1.1])
+
+plt.savefig('results_validation/comparison_with_MC/comparison_model_checker_improved_dropna_2.png', bbox_inches='tight')
 plt.show()
 plt.close()
 
