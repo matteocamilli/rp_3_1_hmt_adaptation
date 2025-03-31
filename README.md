@@ -1,13 +1,20 @@
-Questa repo contiene tutto il necessario per ottimizzare una configurazione di parametri del framework EASE, sfruttando l'algoritmo genetico NSGAII. 
-E' possibile, inoltre, effettuare la validazione dei risultati.
+# README
 
-Il corretto utilizzo prevede:
-- assicurarsi di avere il regressore correttamente trainato e il corrispondente file .joblib all'interno della cartella regressors.
-- utilizzare il file dataset_generator per generare il dataset da analizzare e le corrispondenti configurazioni randomiche. Al momento, questo file prende il ingresso un dataset nel formato in cui è stato trainato il regressore e fa un sampling di 100 datapoint
-- eseguire lo script NSGAII, specificando i valori di n_gen e pop_size da utilizzare. Questo script salva la configurazione ottimizzata.
+This repository contains everything needed to optimize a parameter configuration of the EASE framework using the NSGAII genetic algorithm.  
+Additionally, it is possible to validate the results.
 
-Se si volesse procedere con la validazione dei risultati:
-- eseguire lo script results_validation/plots_and_tables_NSGAII/results_validation.py; è necessario avere le 4 configurazioni ottimizzate generate con le differenti combinazioni di parametri, in modo da confrontarle con le configurazioni randomiche.
-- lo script results_validation/comparison_with_MC/comparison_with_model_checker.py contiene tutte le successive validazioni. Lo script results_validation/comparison_with_uppaal/comparison_with_log.py permette di verificare quante configurazioni farebbero "in tempo" ad adattarsi.
+## Proper Usage  
+- Ensure that the regressor has been correctly trained and that the corresponding `.joblib` file is placed inside the `regressors` folder.  
+- Use the `dataset_generator` file to generate the dataset to be analyzed and the corresponding random configurations.  
+  - Currently, this file takes as input a dataset in the format in which the regressor was trained and samples 100 data points.  
+- Run the `NSGAII` script, specifying the values for `n_gen` and `pop_size` to be used.  
+  - This script saves the optimized configuration.  
 
-E' inoltre presente uno script di conversione, per adattare il formato delle configurazioni generate a quello necessario per l'esecuzione del model checker.
+## Result Validation  
+If you wish to proceed with result validation:  
+- Run the script `results_validation/plots_and_tables_NSGAII/results_validation.py`.  
+  - You need to have the four optimized configurations generated with different parameter combinations in order to compare them with the random configurations.  
+- The script `results_validation/comparison_with_MC/comparison_with_model_checker.py` contains all subsequent validations.  
+- The script `results_validation/comparison_with_uppaal/comparison_with_log.py` allows verification of how many configurations would "adapt in time."  
+
+Additionally, a conversion script is provided to adapt the format of the generated configurations to the one required for executing the model checker.
